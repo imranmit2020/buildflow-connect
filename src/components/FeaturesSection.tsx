@@ -1,8 +1,8 @@
-import { Brain, ShoppingCart, DollarSign, Check } from "lucide-react";
+import { Sparkles, ShoppingCart, DollarSign, Check } from "lucide-react";
 
 const features = [
   {
-    icon: Brain,
+    icon: Sparkles,
     title: "AI Project Orchestration",
     color: "bg-violet-100",
     iconColor: "text-violet-600",
