@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Wrench, AlertTriangle, CheckCircle, Calendar, Clock, Sparkles } from "lucide-react";
 
 const EquipmentMaintenancePage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
 
   const equipment = [
@@ -28,10 +27,10 @@ const EquipmentMaintenancePage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => setCopilotOpen(!copilotOpen)} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-6xl mx-auto space-y-6">

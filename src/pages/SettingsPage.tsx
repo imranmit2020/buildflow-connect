@@ -10,8 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings, Building, Users, Shield, Bell, Palette, Globe, Save, Upload } from "lucide-react";
 
 const SettingsPage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
   const roles = [
     { name: "Client", permissions: ["View Projects", "Approve Changes", "Access Reports"] },
     { name: "Contractor", permissions: ["Manage Tasks", "Submit Reports", "View Documents"] },
@@ -23,10 +21,10 @@ const SettingsPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => {}} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-4xl mx-auto space-y-6">
