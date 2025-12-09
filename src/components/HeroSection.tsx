@@ -51,9 +51,11 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 animate-fade-up delay-400">
-              <Button variant="hero" size="xl">
-                Start Free Trial
-                <ArrowRight className="w-5 h-5" />
+              <Button variant="hero" size="xl" asChild>
+                <a href="/dashboard">
+                  Start Free Trial
+                  <ArrowRight className="w-5 h-5" />
+                </a>
               </Button>
               <Button variant="heroOutline" size="xl">
                 <Play className="w-5 h-5" />
