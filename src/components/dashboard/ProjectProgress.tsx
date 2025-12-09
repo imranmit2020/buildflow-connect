@@ -9,12 +9,10 @@ const ProjectProgress = () => {
   ];
 
   return (
-    <div className="bg-card rounded-xl border border-border p-6 shadow-card">
+    <div className="bg-card rounded-xl border border-border/60 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-display font-semibold text-lg text-foreground">
-          Project Progress
-        </h3>
-        <span className="text-2xl font-display font-bold text-accent">42%</span>
+        <h3 className="font-semibold text-foreground">Project Progress</h3>
+        <span className="text-2xl font-semibold text-primary">42%</span>
       </div>
 
       <div className="space-y-4">
@@ -24,19 +22,19 @@ const ProjectProgress = () => {
               {/* Timeline dot */}
               <div className="relative flex flex-col items-center">
                 <div
-                  className={`w-4 h-4 rounded-full border-2 z-10 ${
+                  className={`w-3 h-3 rounded-full z-10 ${
                     phase.status === "completed"
-                      ? "bg-emerald-500 border-emerald-500"
+                      ? "bg-primary"
                       : phase.status === "in-progress"
-                      ? "bg-accent border-accent"
-                      : "bg-card border-muted-foreground"
+                      ? "bg-primary"
+                      : "bg-muted-foreground/30"
                   }`}
                 />
                 {index < phases.length - 1 && (
                   <div
-                    className={`absolute top-4 w-0.5 h-10 ${
+                    className={`absolute top-3 w-0.5 h-8 ${
                       phase.status === "completed"
-                        ? "bg-emerald-500"
+                        ? "bg-primary"
                         : "bg-muted"
                     }`}
                   />
@@ -47,7 +45,7 @@ const ProjectProgress = () => {
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
                   <span
-                    className={`font-medium ${
+                    className={`text-sm font-medium ${
                       phase.status === "pending"
                         ? "text-muted-foreground"
                         : "text-foreground"
@@ -58,21 +56,21 @@ const ProjectProgress = () => {
                   <span
                     className={`text-sm font-medium ${
                       phase.status === "completed"
-                        ? "text-emerald-500"
+                        ? "text-primary"
                         : phase.status === "in-progress"
-                        ? "text-accent"
+                        ? "text-primary"
                         : "text-muted-foreground"
                     }`}
                   >
                     {phase.progress}%
                   </span>
                 </div>
-                <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      phase.status === "completed"
-                        ? "bg-emerald-500"
-                        : "bg-accent"
+                      phase.status === "completed" || phase.status === "in-progress"
+                        ? "bg-primary"
+                        : "bg-transparent"
                     }`}
                     style={{ width: `${phase.progress}%` }}
                   />

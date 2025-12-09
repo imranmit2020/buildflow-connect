@@ -29,15 +29,15 @@ const Dashboard = () => {
 
         <main className="flex-1 p-6 overflow-auto">
           {/* Page title */}
-          <div className="mb-8">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full" />
               <span className="text-sm font-medium text-emerald-600">On Track</span>
             </div>
-            <h1 className="text-3xl font-display font-bold text-foreground mb-2">
+            <h1 className="text-2xl font-semibold text-foreground mb-1">
               Project Overview
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Green Valley Villa • Last updated 5 mins ago
             </p>
           </div>
