@@ -88,7 +88,7 @@ const VisualizerPage = () => {
                   {/* AI Note */}
                   <div className="mt-4 p-4 bg-primary/10 border border-primary/30 rounded-lg">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-primary" />
+                      <Bot className="h-5 w-5 text-primary" />
                       <span className="font-medium text-foreground">AI Note</span>
                     </div>
                     <p className="text-muted-foreground mt-1">
@@ -122,7 +122,7 @@ const VisualizerPage = () => {
                 Send to Client
               </Button>
               <Button variant="secondary" className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Generate Alternatives (AI)
               </Button>
             </div>

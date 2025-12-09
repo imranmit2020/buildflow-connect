@@ -104,7 +104,7 @@ const SubcontractorAssignmentPage = () => {
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="p-4">
                 <div className="flex items-center gap-3">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                  <Bot className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium text-foreground">AI Suggestion</p>
                     <p className="text-muted-foreground">Assign Sam Electrical — cheaper and fully available within deadline.</p>
@@ -116,7 +116,7 @@ const SubcontractorAssignmentPage = () => {
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Auto-Assign Best Option
               </Button>
               <Button variant="outline" className="gap-2">
