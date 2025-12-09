@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileEdit, DollarSign, Clock, CheckCircle, XCircle, Sparkles, User } from "lucide-react";
+import { FileEdit, DollarSign, Clock, CheckCircle, XCircle, Bot, User } from "lucide-react";
 
 const ChangeOrderPage = () => {
   const changeOrder = {
@@ -84,7 +84,7 @@ const ChangeOrderPage = () => {
             <Card className="border-primary/30 bg-primary/5">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                  <Bot className="h-5 w-5 text-primary" />
                   AI Analysis
                 </CardTitle>
               </CardHeader>
@@ -134,7 +134,7 @@ const ChangeOrderPage = () => {
                 Reject
               </Button>
               <Button variant="outline" className="flex-1 gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Ask AI for Alternatives
               </Button>
             </div>

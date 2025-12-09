@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Filter, Plus, Sparkles, User, Clock, AlertTriangle } from "lucide-react";
+import { Filter, Plus, Bot, User, Clock, AlertTriangle } from "lucide-react";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,7 +80,7 @@ const TasksBoardPage = () => {
             </div>
             <div className="flex items-center gap-3">
               <Button variant="outline" onClick={() => setCopilotOpen(true)}>
-                <Sparkles className="w-4 h-4 mr-2" />
+                <Bot className="w-4 h-4 mr-2" />
                 AI Suggestions
               </Button>
               <Button>
@@ -130,7 +130,7 @@ const TasksBoardPage = () => {
                             {task.title}
                           </h4>
                           {task.aiSuggested && (
-                            <Sparkles className="w-3 h-3 text-accent ml-2 flex-shrink-0" />
+                            <Bot className="w-3 h-3 text-primary ml-2 flex-shrink-0" />
                           )}
                           {task.blocked && (
                             <AlertTriangle className="w-3 h-3 text-destructive ml-2 flex-shrink-0" />
@@ -166,10 +166,10 @@ const TasksBoardPage = () => {
           </div>
 
           {/* AI Insight Card */}
-          <Card className="mt-6 bg-accent/5 border-accent/20">
+          <Card className="mt-6 bg-primary/5 border-primary/20">
             <CardContent className="p-4 flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-4 h-4 text-accent" />
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <Bot className="w-4 h-4 text-primary" />
               </div>
               <div>
                 <h4 className="font-medium text-foreground mb-1">AI Task Suggestions</h4>

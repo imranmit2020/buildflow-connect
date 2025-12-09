@@ -13,7 +13,6 @@ import {
   TrendingDown,
   Check,
   AlertTriangle,
-  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -127,7 +126,7 @@ const FinanceDashboard = () => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-4 h-4 text-accent" />
+                  <Bot className="w-4 h-4 text-primary" />
                   <h3 className="font-display font-semibold text-foreground">
                     Cashflow Forecast (AI)
                   </h3>

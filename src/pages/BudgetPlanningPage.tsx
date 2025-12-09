@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
-import { DollarSign, TrendingUp, Sparkles, Download, Settings } from "lucide-react";
+import { DollarSign, TrendingUp, Bot, Download, Settings } from "lucide-react";
 
 const BudgetPlanningPage = () => {
   const budgetData = {
@@ -115,7 +115,7 @@ const BudgetPlanningPage = () => {
               <Card className="border-primary/30">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-primary" />
+                    <Bot className="h-5 w-5 text-primary" />
                     AI Insights
                   </CardTitle>
                 </CardHeader>
@@ -136,7 +136,7 @@ const BudgetPlanningPage = () => {
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 AI Optimize Budget
               </Button>
               <Button variant="outline" className="gap-2">

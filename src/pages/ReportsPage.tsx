@@ -11,7 +11,7 @@ import {
   CheckCircle2,
   TrendingUp,
   AlertTriangle,
-  Sparkles,
+  Lightbulb,
   Star,
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
@@ -80,7 +80,7 @@ const ReportsPage = () => {
                 className="gap-2"
                 onClick={() => setCopilotOpen(true)}
               >
-                <Sparkles className="w-4 h-4" />
+                <Bot className="w-4 h-4" />
                 Ask AI for Forecast
               </Button>
             </div>
@@ -245,7 +245,7 @@ const ReportsPage = () => {
                   Monitor electrical phase closely
                 </div>
                 <div className="flex items-center gap-2 text-sm text-foreground">
-                  <Sparkles className="w-4 h-4 text-accent" />
+                  <Lightbulb className="w-4 h-4 text-primary" />
                   Consider bulk material order for cost savings
                 </div>
               </div>

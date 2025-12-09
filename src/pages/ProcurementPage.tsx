@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Bot,
   Package,
-  Sparkles,
+  Lightbulb,
   DollarSign,
   TrendingDown,
   AlertTriangle,
@@ -146,7 +146,7 @@ const ProcurementPage = () => {
           <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden mb-8">
             <div className="p-6 border-b border-border flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-accent" />
+                <Bot className="w-5 h-5 text-primary" />
                 <h3 className="font-display font-semibold text-lg text-foreground">
                   Material List (AI-Generated)
                 </h3>
@@ -208,7 +208,7 @@ const ProcurementPage = () => {
                             getAiTypeStyle(material.aiType)
                           )}
                         >
-                          <Sparkles className="w-3 h-3" />
+                          <Lightbulb className="w-3 h-3" />
                           {material.aiRecommendation}
                         </span>
                       </td>

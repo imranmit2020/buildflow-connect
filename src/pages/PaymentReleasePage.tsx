@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { DollarSign, CheckCircle, XCircle, FileText, Camera, Sparkles, User, Clock } from "lucide-react";
+import { DollarSign, CheckCircle, XCircle, FileText, Camera, Bot, User, Clock } from "lucide-react";
 
 const PaymentReleasePage = () => {
   const invoice = {
@@ -77,7 +77,7 @@ const PaymentReleasePage = () => {
             <Card className="border-green-500/30 bg-green-500/5">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-green-600">
-                  <Sparkles className="h-5 w-5" />
+                  <Bot className="h-5 w-5" />
                   AI Verification
                 </CardTitle>
               </CardHeader>
@@ -136,7 +136,7 @@ const PaymentReleasePage = () => {
                 Request Evidence
               </Button>
               <Button variant="secondary" className="flex-1 gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 AI Generate Summary
               </Button>
             </div>

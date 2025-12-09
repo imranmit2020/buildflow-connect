@@ -5,7 +5,7 @@ import AICopilotSidebar from "@/components/dashboard/AICopilotSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Wrench, Calendar, AlertTriangle, Plus, Sparkles, CheckCircle } from "lucide-react";
+import { Users, Wrench, Calendar, AlertTriangle, Plus, Bot, CheckCircle } from "lucide-react";
 
 const ResourceSchedulingPage = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
