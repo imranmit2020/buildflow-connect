@@ -62,7 +62,6 @@ const allNavItems: NavItem[] = [
   
   // Projects & Planning
   { icon: FolderKanban, label: "Projects", path: "/projects", roles: ["client", "contractor", "architect", "designer"] },
-  { icon: Store, label: "Marketplace", path: "/marketplace", roles: ["client", "contractor", "architect", "designer"] },
   { icon: CalendarDays, label: "Timeline", path: "/timeline", roles: ["client", "contractor", "architect", "designer"] },
   { icon: CheckSquare, label: "Tasks", path: "/tasks", roles: ["client", "contractor", "architect"] },
   
@@ -204,8 +203,37 @@ const DashboardSidebar = () => {
         </div>
       )}
 
+      {/* Marketplace - Separate Section */}
+      {["client", "contractor", "architect", "designer"].includes(currentRole.id) && (
+        <div className="px-3 pt-4 pb-2">
+          {!collapsed && (
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2">
+              Marketplace
+            </p>
+          )}
+          <NavLink
+            to="/marketplace"
+            className={cn(
+              "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/5 border border-primary/20 text-sidebar-foreground hover:bg-primary/10 hover:border-primary/30 transition-colors duration-200 group",
+              collapsed && "justify-center px-2"
+            )}
+            activeClassName="bg-primary/15 border-primary/40 text-primary font-semibold"
+          >
+            <Store className="w-5 h-5 shrink-0 text-primary group-hover:text-primary transition-colors" />
+            {!collapsed && (
+              <span className="truncate text-sm font-medium">Marketplace</span>
+            )}
+          </NavLink>
+        </div>
+      )}
+
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+      <nav className="flex-1 py-2 px-3 space-y-1 overflow-y-auto">
+        {!collapsed && (
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2">
+            Menu
+          </p>
+        )}
         {allNavItems
           .filter((item) => item.roles.includes(currentRole.id))
           .map((item) => {
