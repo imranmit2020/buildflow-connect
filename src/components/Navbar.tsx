@@ -13,16 +13,16 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-accent-gradient rounded-lg flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform duration-300">
-              <Building2 className="w-6 h-6 text-accent-foreground" />
+          <a href="/" className="flex items-center gap-2 group">
+            <div className="w-9 h-9 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center">
+              <Building2 className="w-5 h-5 text-white" />
             </div>
-            <span className="font-display font-bold text-xl text-foreground">
-              BuildFlow
+            <span className="font-bold text-xl text-slate-900">
+              Construq
             </span>
           </a>
 
@@ -32,7 +32,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground font-medium transition-colors duration-300"
+                className="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors duration-300"
               >
                 {link.name}
               </a>
@@ -40,12 +40,12 @@ const Navbar = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" size="sm">
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="ghost" size="sm" className="text-slate-600">
               Sign In
             </Button>
-            <Button variant="accent" size="sm">
-              Start Free Trial
+            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-white">
+              Get Started
             </Button>
           </div>
 
@@ -55,33 +55,33 @@ const Navbar = () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-foreground" />
+              <X className="w-6 h-6 text-slate-900" />
             ) : (
-              <Menu className="w-6 h-6 text-foreground" />
+              <Menu className="w-6 h-6 text-slate-900" />
             )}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-up">
+          <div className="md:hidden py-4 border-t border-slate-100">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground font-medium py-2 transition-colors"
+                  className="text-slate-600 hover:text-slate-900 font-medium py-2 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                <Button variant="ghost" className="justify-start">
+              <div className="flex flex-col gap-2 pt-4 border-t border-slate-100">
+                <Button variant="ghost" className="justify-start text-slate-600">
                   Sign In
                 </Button>
-                <Button variant="accent">
-                  Start Free Trial
+                <Button className="bg-teal-500 hover:bg-teal-600 text-white">
+                  Get Started
                 </Button>
               </div>
             </div>

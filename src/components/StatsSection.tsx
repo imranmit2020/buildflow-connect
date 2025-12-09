@@ -7,24 +7,18 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="py-20 bg-hero relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 pattern-grid opacity-[0.03]" />
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent/20 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-steel-blue/20 rounded-full blur-[100px]" />
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-16 bg-gradient-to-r from-teal-600 to-emerald-600">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {stats.map((stat, index) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
-              className="text-center animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="text-center"
             >
-              <div className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
                 {stat.value}
               </div>
-              <div className="text-primary-foreground/60 font-medium">
+              <div className="text-teal-100 font-medium text-sm">
                 {stat.label}
               </div>
             </div>
