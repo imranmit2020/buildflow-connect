@@ -5,7 +5,7 @@ import AICopilotSidebar from "@/components/dashboard/AICopilotSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Wrench, AlertTriangle, CheckCircle, Calendar, Clock, Sparkles } from "lucide-react";
+import { Wrench, AlertTriangle, CheckCircle, Calendar, Clock, Bot } from "lucide-react";
 
 const EquipmentMaintenancePage = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
@@ -60,7 +60,7 @@ const EquipmentMaintenancePage = () => {
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="p-4">
                 <div className="flex items-center gap-3">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                  <Bot className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium text-foreground">AI Recommendation</p>
                     <p className="text-muted-foreground">Service generator before Dec 12 to avoid downtime during critical electrical work.</p>

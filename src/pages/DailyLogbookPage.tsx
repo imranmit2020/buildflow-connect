@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { BookOpen, Sun, Camera, Plus, Send, Sparkles, Image } from "lucide-react";
+import { BookOpen, Sun, Camera, Plus, Send, Bot, Image } from "lucide-react";
 
 const DailyLogbookPage = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
@@ -131,7 +131,7 @@ const DailyLogbookPage = () => {
                 Submit Log
               </Button>
               <Button variant="outline" className="flex-1 gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Generate AI Summary
               </Button>
             </div>

@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import {
   Bot,
   Send,
-  Sparkles,
   Image,
   Paperclip,
   MoreVertical,
@@ -164,7 +163,7 @@ const MessagingPage = () => {
                           )}
                         >
                           {message.isAI ? (
-                            <Sparkles className="w-3 h-3" />
+                            <Bot className="w-3 h-3" />
                           ) : (
                             message.sender[0]
                           )}
@@ -196,12 +195,12 @@ const MessagingPage = () => {
               ))}
 
               {/* AI Assist prompt */}
-              <div className="flex items-center gap-3 p-4 bg-accent/10 rounded-xl border border-accent/20">
-                <Sparkles className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-xl border border-primary/20">
+                <Bot className="w-5 h-5 text-primary" />
                 <span className="text-sm text-foreground flex-1">
                   "Draft explanation for client about the beam interference?"
                 </span>
-                <Button variant="accent" size="sm">Yes</Button>
+                <Button size="sm">Yes</Button>
                 <Button variant="ghost" size="sm">No</Button>
               </div>
             </div>
@@ -219,10 +218,10 @@ const MessagingPage = () => {
                   className="flex-1"
                 />
                 <Button variant="outline" size="sm" className="gap-2">
-                  <Sparkles className="w-4 h-4" />
+                  <Bot className="w-4 h-4" />
                   AI Rewrite
                 </Button>
-                <Button variant="accent" size="icon">
+                <Button size="icon">
                   <Send className="w-5 h-5" />
                 </Button>
               </div>

@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Box, Palette, Lightbulb, Send, Save, Sparkles, RotateCcw, Image } from "lucide-react";
+import { Box, Palette, Lightbulb, Send, Save, Bot, RotateCcw, Image } from "lucide-react";
 
 const VisualizerPage = () => {
   const materials = [

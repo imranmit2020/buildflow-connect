@@ -1,4 +1,4 @@
-import { Bot, Sparkles, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Bot, AlertTriangle, CheckCircle2, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AISummaryCardProps {
@@ -17,7 +17,7 @@ const AISummaryCard = ({ summary, insights }: AISummaryCardProps) => {
       case "warning":
         return <AlertTriangle className="w-4 h-4 text-amber-500" />;
       default:
-        return <Sparkles className="w-4 h-4 text-primary" />;
+        return <Lightbulb className="w-4 h-4 text-primary" />;
     }
   };
 
@@ -48,7 +48,7 @@ const AISummaryCard = ({ summary, insights }: AISummaryCardProps) => {
       </div>
 
       <Button size="sm" className="gap-2">
-        <Sparkles className="w-4 h-4" />
+        <Bot className="w-4 h-4" />
         Ask AI Copilot
       </Button>
     </div>

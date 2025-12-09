@@ -4,15 +4,15 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, AlertTriangle, CheckCircle, Truck, FileText, Shield, DollarSign, Sparkles, Check } from "lucide-react";
+import { Bell, AlertTriangle, CheckCircle, Truck, FileText, Shield, DollarSign, Bot, Check } from "lucide-react";
 
 const NotificationsPage = () => {
   const notifications = [
     { 
       id: 1, 
       type: "ai", 
-      icon: Sparkles, 
-      title: "Electrical wiring delay predicted", 
+      icon: Bot, 
+      title: "Electrical wiring delay predicted",
       description: "AI detected potential 3-day delay in electrical work",
       time: "5 min ago",
       read: false 

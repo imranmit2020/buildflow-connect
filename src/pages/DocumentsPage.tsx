@@ -15,7 +15,7 @@ import {
   File,
   Camera,
   BarChart3,
-  Sparkles,
+  Lightbulb,
   AlertTriangle,
   Tag,
 } from "lucide-react";
@@ -192,9 +192,9 @@ const DocumentsPage = () => {
           </div>
 
           {/* AI Insights */}
-          <div className="bg-gradient-to-r from-accent/10 to-amber-500/10 rounded-xl border border-accent/20 p-4 mb-6">
+          <div className="bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-xl border border-primary/20 p-4 mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-4 h-4 text-accent" />
+              <Bot className="w-4 h-4 text-primary" />
               <h3 className="font-semibold text-foreground">AI Document Insights</h3>
             </div>
             <div className="flex flex-wrap gap-4">
@@ -203,7 +203,7 @@ const DocumentsPage = () => {
                   {insight.type === "warning" ? (
                     <AlertTriangle className="w-4 h-4 text-amber-500" />
                   ) : (
-                    <Sparkles className="w-4 h-4 text-accent" />
+                    <Lightbulb className="w-4 h-4 text-primary" />
                   )}
                   {insight.message}
                 </div>
@@ -288,7 +288,7 @@ const DocumentsPage = () => {
           {/* Bottom actions */}
           <div className="flex gap-3 mt-6">
             <Button variant="outline" className="gap-2">
-              <Sparkles className="w-4 h-4" />
+              <Bot className="w-4 h-4" />
               AI Summarize Folder
             </Button>
             <Button variant="outline" className="gap-2">

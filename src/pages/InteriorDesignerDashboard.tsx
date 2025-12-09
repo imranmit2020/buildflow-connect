@@ -9,7 +9,6 @@ import {
   Send,
   Palette,
   Save,
-  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -131,9 +130,9 @@ const InteriorDesignerDashboard = () => {
           </div>
 
           {/* AI Filter badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-accent">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
+            <Bot className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">
               AI Filter: "Light Modern"
             </span>
           </div>
@@ -191,10 +190,10 @@ const InteriorDesignerDashboard = () => {
             {/* Right sidebar */}
             <div className="space-y-6">
               {/* AI Recommendation */}
-              <div className="bg-gradient-to-br from-accent/10 to-amber-500/10 rounded-xl border border-accent/20 p-6">
+              <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl border border-primary/20 p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-accent-gradient rounded-xl flex items-center justify-center shadow-glow">
-                    <Sparkles className="w-5 h-5 text-accent-foreground" />
+                  <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-display font-semibold text-foreground">
                     AI Recommendation

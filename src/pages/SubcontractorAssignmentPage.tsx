@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Star, Calendar, DollarSign, Sparkles, Plus, CheckCircle } from "lucide-react";
+import { Users, Star, Calendar, DollarSign, Bot, Plus, CheckCircle } from "lucide-react";
 
 const SubcontractorAssignmentPage = () => {
   const task = {

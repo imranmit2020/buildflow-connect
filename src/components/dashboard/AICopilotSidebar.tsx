@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bot, Sparkles, X, Send, FileText, Mail, ClipboardList } from "lucide-react";
+import { Bot, Lightbulb, X, Send, FileText, Mail, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -102,10 +102,9 @@ const AICopilotSidebar = ({ isOpen, onClose }: AICopilotSidebarProps) => {
         ))}
       </div>
 
-      {/* Suggestions */}
       <div className="p-4 border-b border-border">
         <p className="text-xs font-medium text-muted-foreground mb-3 flex items-center gap-2">
-          <Sparkles className="w-3 h-3" />
+          <Lightbulb className="w-3 h-3" />
           Real-Time Suggestions
         </p>
         <div className="space-y-2">

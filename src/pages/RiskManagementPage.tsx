@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { ShieldAlert, AlertTriangle, TrendingUp, Clock, DollarSign, Users, Sparkles, Eye, Wrench } from "lucide-react";
+import { ShieldAlert, AlertTriangle, TrendingUp, Clock, DollarSign, Users, Bot, Eye, Wrench } from "lucide-react";
 
 const RiskManagementPage = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
@@ -101,7 +101,7 @@ const RiskManagementPage = () => {
               <Card className="border-primary/30">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-primary" />
+                    <Bot className="h-5 w-5 text-primary" />
                     AI Action Items
                   </CardTitle>
                 </CardHeader>
@@ -154,7 +154,7 @@ const RiskManagementPage = () => {
                 View Details
               </Button>
               <Button variant="outline" className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Apply AI Fix
               </Button>
             </div>

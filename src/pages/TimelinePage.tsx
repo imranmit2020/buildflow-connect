@@ -7,7 +7,6 @@ import {
   Bot,
   Download,
   Filter,
-  Sparkles,
   AlertTriangle,
   AlertCircle,
   Lightbulb,
@@ -93,7 +92,7 @@ const TimelinePage = () => {
                 className="gap-2"
                 onClick={() => setCopilotOpen(true)}
               >
-                <Sparkles className="w-4 h-4" />
+                <Bot className="w-4 h-4" />
                 Reschedule with AI
               </Button>
             </div>
