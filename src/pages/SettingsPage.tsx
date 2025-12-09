@@ -57,7 +57,7 @@ const SettingsPage = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="company-name">Company Name</Label>
-                        <Input id="company-name" defaultValue="ConstruQ Builders Ltd." />
+                        <Input id="company-name" defaultValue="Construq Builders Ltd." />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="timezone">Timezone</Label>
