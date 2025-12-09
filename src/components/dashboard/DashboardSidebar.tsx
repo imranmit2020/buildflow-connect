@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Building2,
   LogOut,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -29,8 +30,19 @@ const navItems = [
   { icon: Bot, label: "AI Copilot", path: "/ai-copilot" },
 ];
 
+const roles = [
+  { id: "client", label: "Client", path: "/dashboard" },
+  { id: "contractor", label: "Contractor", path: "/contractor" },
+  { id: "architect", label: "Architect", path: "/architect" },
+  { id: "designer", label: "Interior Designer", path: "/designer" },
+  { id: "vendor", label: "Vendor", path: "/vendor" },
+  { id: "finance", label: "Finance Team", path: "/finance-dashboard" },
+];
+
 const DashboardSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+  const [currentRole, setCurrentRole] = useState(roles[0]);
 
   return (
     <aside
@@ -65,6 +77,42 @@ const DashboardSidebar = () => {
           )}
         </Button>
       </div>
+
+      {/* Role Switcher */}
+      {!collapsed && (
+        <div className="p-3 border-b border-sidebar-border">
+          <div className="relative">
+            <button
+              onClick={() => setRoleMenuOpen(!roleMenuOpen)}
+              className="w-full flex items-center justify-between px-3 py-2 bg-accent/10 border border-accent/20 rounded-lg text-sm font-medium text-foreground hover:bg-accent/20 transition-colors"
+            >
+              <span>Role: {currentRole.label}</span>
+              <ChevronDown className={cn("w-4 h-4 transition-transform", roleMenuOpen && "rotate-180")} />
+            </button>
+            
+            {roleMenuOpen && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 overflow-hidden">
+                {roles.map((role) => (
+                  <NavLink
+                    key={role.id}
+                    to={role.path}
+                    onClick={() => {
+                      setCurrentRole(role);
+                      setRoleMenuOpen(false);
+                    }}
+                    className={cn(
+                      "block px-3 py-2 text-sm hover:bg-secondary transition-colors",
+                      currentRole.id === role.id ? "bg-accent/10 text-accent" : "text-foreground"
+                    )}
+                  >
+                    {role.label}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
@@ -116,7 +164,7 @@ const DashboardSidebar = () => {
           {!collapsed && (
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground truncate">Imran Ahmed</p>
-              <p className="text-xs text-muted-foreground">Client</p>
+              <p className="text-xs text-muted-foreground">{currentRole.label}</p>
             </div>
           )}
           {!collapsed && (
