@@ -25,6 +25,18 @@ import DailyLogbookPage from "./pages/DailyLogbookPage";
 import EquipmentMaintenancePage from "./pages/EquipmentMaintenancePage";
 import SettingsPage from "./pages/SettingsPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import ChangeOrderPage from "./pages/ChangeOrderPage";
+import SubcontractorAssignmentPage from "./pages/SubcontractorAssignmentPage";
+import DeliveryTrackingPage from "./pages/DeliveryTrackingPage";
+import BudgetPlanningPage from "./pages/BudgetPlanningPage";
+import VisualizerPage from "./pages/VisualizerPage";
+import BOQGeneratorPage from "./pages/BOQGeneratorPage";
+import PaymentReleasePage from "./pages/PaymentReleasePage";
+import AICopilotFullPage from "./pages/AICopilotFullPage";
+import AuditLogsPage from "./pages/AuditLogsPage";
+import MultiCurrencyPage from "./pages/MultiCurrencyPage";
+import HandoverChecklistPage from "./pages/HandoverChecklistPage";
+import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +49,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contractor" element={<ContractorDashboard />} />
           <Route path="/architect" element={<ArchitectDashboard />} />
@@ -49,7 +62,7 @@ const App = () => (
           <Route path="/procurement" element={<ProcurementPage />} />
           <Route path="/vendors" element={<VendorDashboard />} />
           <Route path="/finance" element={<FinanceDashboard />} />
-          <Route path="/ai-copilot" element={<Dashboard />} />
+          <Route path="/ai-copilot" element={<AICopilotFullPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/reports" element={<ReportsPage />} />
           <Route path="/messages" element={<MessagingPage />} />
@@ -61,7 +74,16 @@ const App = () => (
           <Route path="/daily-log" element={<DailyLogbookPage />} />
           <Route path="/equipment" element={<EquipmentMaintenancePage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/change-order" element={<ChangeOrderPage />} />
+          <Route path="/subcontractor-assignment" element={<SubcontractorAssignmentPage />} />
+          <Route path="/delivery-tracking" element={<DeliveryTrackingPage />} />
+          <Route path="/budget-planning" element={<BudgetPlanningPage />} />
+          <Route path="/visualizer" element={<VisualizerPage />} />
+          <Route path="/boq-generator" element={<BOQGeneratorPage />} />
+          <Route path="/payment-release" element={<PaymentReleasePage />} />
+          <Route path="/audit-logs" element={<AuditLogsPage />} />
+          <Route path="/multi-currency" element={<MultiCurrencyPage />} />
+          <Route path="/handover" element={<HandoverChecklistPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
