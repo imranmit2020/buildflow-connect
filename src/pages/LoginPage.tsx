@@ -36,7 +36,7 @@ const LoginPage = () => {
           <div className="w-16 h-16 bg-accent-gradient rounded-2xl flex items-center justify-center shadow-glow mx-auto mb-4">
             <Building2 className="w-8 h-8 text-accent-foreground" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-foreground">ConstruQ</h1>
+          <h1 className="text-3xl font-display font-bold text-foreground">Construq</h1>
           <p className="text-accent font-semibold">NEXUS AI</p>
         </div>
 
