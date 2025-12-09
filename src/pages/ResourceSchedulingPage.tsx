@@ -126,7 +126,7 @@ const ResourceSchedulingPage = () => {
             <Card className="border-primary/30">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                  <Bot className="h-5 w-5 text-primary" />
                   AI Schedule Insights
                 </CardTitle>
               </CardHeader>
@@ -149,7 +149,7 @@ const ResourceSchedulingPage = () => {
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Bot className="h-4 w-4" />
                 Auto-Optimize
               </Button>
               <Button variant="outline" className="gap-2">

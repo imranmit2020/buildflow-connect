@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileSpreadsheet, Upload, Download, ShoppingCart, Bot } from "lucide-react";
+import { FileSpreadsheet, Upload, Download, ShoppingCart, Bot, Lightbulb } from "lucide-react";
 
 const BOQGeneratorPage = () => {
   const boqItems = [
@@ -57,7 +57,7 @@ const BOQGeneratorPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-primary" />
+                    <Bot className="h-5 w-5 text-primary" />
                     AI Output: Material Quantities
                   </span>
                   <Badge variant="secondary">Auto-Generated</Badge>
@@ -109,7 +109,7 @@ const BOQGeneratorPage = () => {
                 Auto-Create PO
               </Button>
               <Button variant="secondary" className="gap-2">
-                <Sparkles className="h-4 w-4" />
+                <Lightbulb className="h-4 w-4" />
                 Ask AI to Optimize Costs
               </Button>
             </div>
