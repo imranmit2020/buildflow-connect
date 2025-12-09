@@ -37,6 +37,7 @@ import {
   ScrollText,
   ClipboardList,
   Briefcase,
+  Store,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -61,6 +62,7 @@ const allNavItems: NavItem[] = [
   
   // Projects & Planning
   { icon: FolderKanban, label: "Projects", path: "/projects", roles: ["client", "contractor", "architect", "designer"] },
+  { icon: Store, label: "Marketplace", path: "/marketplace", roles: ["client", "contractor", "architect", "designer"] },
   { icon: CalendarDays, label: "Timeline", path: "/timeline", roles: ["client", "contractor", "architect", "designer"] },
   { icon: CheckSquare, label: "Tasks", path: "/tasks", roles: ["client", "contractor", "architect"] },
   
