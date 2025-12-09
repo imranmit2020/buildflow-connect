@@ -39,6 +39,7 @@ import MultiCurrencyPage from "./pages/MultiCurrencyPage";
 import HandoverChecklistPage from "./pages/HandoverChecklistPage";
 import LoginPage from "./pages/LoginPage";
 import MarketplacePage from "./pages/MarketplacePage";
+import WorkflowPage from "./pages/WorkflowPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -90,6 +91,7 @@ const App = () => (
           <Route path="/change-orders" element={<ChangeOrderPage />} />
           <Route path="/audit-logs" element={<AuditLogsPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/workflow" element={<WorkflowPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
