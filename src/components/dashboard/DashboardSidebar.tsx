@@ -152,10 +152,7 @@ const DashboardSidebar = () => {
             <Building2 className="w-5 h-5 text-accent-foreground" />
           </div>
           {!collapsed && (
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-foreground">Construq</span>
-              <span className="text-xs text-accent font-semibold">NEXUS AI</span>
-            </div>
+            <span className="font-display font-bold text-foreground">Construq</span>
           )}
         </div>
         <Button

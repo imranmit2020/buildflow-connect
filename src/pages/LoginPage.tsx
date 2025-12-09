@@ -37,7 +37,6 @@ const LoginPage = () => {
             <Building2 className="w-8 h-8 text-accent-foreground" />
           </div>
           <h1 className="text-3xl font-display font-bold text-foreground">Construq</h1>
-          <p className="text-accent font-semibold">NEXUS AI</p>
         </div>
 
         <Card>
