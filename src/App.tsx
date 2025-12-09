@@ -10,6 +10,12 @@ import ArchitectDashboard from "./pages/ArchitectDashboard";
 import InteriorDesignerDashboard from "./pages/InteriorDesignerDashboard";
 import VendorDashboard from "./pages/VendorDashboard";
 import FinanceDashboard from "./pages/FinanceDashboard";
+import DocumentsPage from "./pages/DocumentsPage";
+import TimelinePage from "./pages/TimelinePage";
+import ReportsPage from "./pages/ReportsPage";
+import MessagingPage from "./pages/MessagingPage";
+import PortfolioPage from "./pages/PortfolioPage";
+import ProcurementPage from "./pages/ProcurementPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,14 +34,16 @@ const App = () => (
           <Route path="/designer" element={<InteriorDesignerDashboard />} />
           <Route path="/vendor" element={<VendorDashboard />} />
           <Route path="/finance-dashboard" element={<FinanceDashboard />} />
-          <Route path="/projects" element={<Dashboard />} />
-          <Route path="/tasks" element={<Dashboard />} />
-          <Route path="/documents" element={<Dashboard />} />
-          <Route path="/procurement" element={<Dashboard />} />
-          <Route path="/vendors" element={<Dashboard />} />
-          <Route path="/finance" element={<Dashboard />} />
+          <Route path="/projects" element={<PortfolioPage />} />
+          <Route path="/tasks" element={<TimelinePage />} />
+          <Route path="/documents" element={<DocumentsPage />} />
+          <Route path="/procurement" element={<ProcurementPage />} />
+          <Route path="/vendors" element={<VendorDashboard />} />
+          <Route path="/finance" element={<FinanceDashboard />} />
           <Route path="/ai-copilot" element={<Dashboard />} />
           <Route path="/settings" element={<Dashboard />} />
+          <Route path="/reports" element={<ReportsPage />} />
+          <Route path="/messages" element={<MessagingPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
