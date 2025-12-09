@@ -38,6 +38,7 @@ import AuditLogsPage from "./pages/AuditLogsPage";
 import MultiCurrencyPage from "./pages/MultiCurrencyPage";
 import HandoverChecklistPage from "./pages/HandoverChecklistPage";
 import LoginPage from "./pages/LoginPage";
+import MarketplacePage from "./pages/MarketplacePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -88,6 +89,7 @@ const App = () => (
           <Route path="/multi-currency" element={<MultiCurrencyPage />} />
           <Route path="/change-orders" element={<ChangeOrderPage />} />
           <Route path="/audit-logs" element={<AuditLogsPage />} />
+          <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
