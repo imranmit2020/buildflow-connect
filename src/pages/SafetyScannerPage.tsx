@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, AlertTriangle, Camera, CheckCircle, XCircle, Eye, Bell, Image } from "lucide-react";
 
 const SafetyScannerPage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
 
   const aiFlags = [
@@ -27,10 +26,10 @@ const SafetyScannerPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => setCopilotOpen(!copilotOpen)} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-6xl mx-auto space-y-6">

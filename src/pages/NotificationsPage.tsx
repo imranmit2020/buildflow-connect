@@ -7,8 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Bell, AlertTriangle, CheckCircle, Truck, FileText, Shield, DollarSign, Sparkles, Check } from "lucide-react";
 
 const NotificationsPage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
   const notifications = [
     { 
       id: 1, 
@@ -92,10 +90,10 @@ const NotificationsPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => {}} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-3xl mx-auto space-y-6">

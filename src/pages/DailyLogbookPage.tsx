@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { BookOpen, Sun, Camera, Plus, Send, Sparkles, Image } from "lucide-react";
 
 const DailyLogbookPage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
 
   const todaysWork = [
@@ -26,10 +25,10 @@ const DailyLogbookPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => setCopilotOpen(!copilotOpen)} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-4xl mx-auto space-y-6">

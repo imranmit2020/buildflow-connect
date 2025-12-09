@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { ClipboardCheck, Camera, AlertTriangle, CheckCircle, MessageSquare, FileText, Image } from "lucide-react";
 
 const SiteInspectionPage = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
 
   const photos = [
@@ -30,10 +29,10 @@ const SiteInspectionPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <DashboardSidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <DashboardSidebar />
       
       <div className="flex-1 flex flex-col">
-        <DashboardHeader onCopilotToggle={() => setCopilotOpen(!copilotOpen)} />
+        <DashboardHeader />
         
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-6xl mx-auto space-y-6">
