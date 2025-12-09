@@ -46,38 +46,36 @@ const deadlines: Deadline[] = [
 ];
 
 const priorityStyles = {
-  high: "bg-destructive/10 text-destructive border-destructive/20",
-  medium: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-  low: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  high: "bg-destructive/10 text-destructive",
+  medium: "bg-amber-50 text-amber-600",
+  low: "bg-emerald-50 text-emerald-600",
 };
 
 const UpcomingDeadlines = () => {
   return (
-    <div className="bg-card rounded-xl border border-border p-6 shadow-card">
+    <div className="bg-card rounded-xl border border-border/60 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-display font-semibold text-lg text-foreground">
-          Upcoming Deadlines
-        </h3>
-        <button className="text-sm text-accent hover:underline font-medium">
+        <h3 className="font-semibold text-foreground">Upcoming Deadlines</h3>
+        <button className="text-sm text-primary hover:underline font-medium">
           View All
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {deadlines.map((deadline) => (
           <div
             key={deadline.id}
-            className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group"
+            className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
           >
-            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
-              <Calendar className="w-5 h-5 text-accent" />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <Calendar className="w-4 h-4 text-primary" />
             </div>
 
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground truncate group-hover:text-accent transition-colors">
+              <p className="font-medium text-sm text-foreground truncate">
                 {deadline.title}
               </p>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
                 <span className="flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {deadline.date}
@@ -89,16 +87,14 @@ const UpcomingDeadlines = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <span
-                className={cn(
-                  "text-xs font-medium px-2 py-1 rounded-full border",
-                  priorityStyles[deadline.priority]
-                )}
-              >
-                {deadline.daysLeft}d left
-              </span>
-            </div>
+            <span
+              className={cn(
+                "text-xs font-medium px-2.5 py-1 rounded-full",
+                priorityStyles[deadline.priority]
+              )}
+            >
+              {deadline.daysLeft}d left
+            </span>
           </div>
         ))}
       </div>
