@@ -12,6 +12,7 @@ import VendorDashboard from "./pages/VendorDashboard";
 import FinanceDashboard from "./pages/FinanceDashboard";
 import DocumentsPage from "./pages/DocumentsPage";
 import TimelinePage from "./pages/TimelinePage";
+import TasksBoardPage from "./pages/TasksBoardPage";
 import ReportsPage from "./pages/ReportsPage";
 import MessagingPage from "./pages/MessagingPage";
 import PortfolioPage from "./pages/PortfolioPage";
@@ -57,7 +58,8 @@ const App = () => (
           <Route path="/vendor" element={<VendorDashboard />} />
           <Route path="/finance-dashboard" element={<FinanceDashboard />} />
           <Route path="/projects" element={<PortfolioPage />} />
-          <Route path="/tasks" element={<TimelinePage />} />
+          <Route path="/tasks" element={<TasksBoardPage />} />
+          <Route path="/tasks-board" element={<TasksBoardPage />} />
           <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/procurement" element={<ProcurementPage />} />
