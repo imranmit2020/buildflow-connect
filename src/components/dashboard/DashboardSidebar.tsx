@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -116,22 +116,24 @@ const DashboardSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
   
-  // Determine current role based on route
-  const getCurrentRoleFromPath = () => {
-    const path = location.pathname;
-    if (path.startsWith("/contractor")) return roles.find(r => r.id === "contractor")!;
-    if (path.startsWith("/architect")) return roles.find(r => r.id === "architect")!;
-    if (path.startsWith("/designer")) return roles.find(r => r.id === "designer")!;
-    if (path.startsWith("/vendor")) return roles.find(r => r.id === "vendor")!;
-    if (path.startsWith("/finance-dashboard")) return roles.find(r => r.id === "finance")!;
+  // Get initial role from localStorage or default to client
+  const getInitialRole = (): typeof roles[0] => {
+    const savedRoleId = localStorage.getItem("selectedRole");
+    if (savedRoleId) {
+      const found = roles.find(r => r.id === savedRoleId);
+      if (found) return found;
+    }
     return roles[0]; // Default to client
   };
   
-  const [currentRole, setCurrentRole] = useState(getCurrentRoleFromPath);
+  const [currentRole, setCurrentRole] = useState(getInitialRole);
   
-  useEffect(() => {
-    setCurrentRole(getCurrentRoleFromPath());
-  }, [location.pathname]);
+  // Handle role change - persist to localStorage
+  const handleRoleChange = (role: typeof roles[0]) => {
+    setCurrentRole(role);
+    localStorage.setItem("selectedRole", role.id);
+    setRoleMenuOpen(false);
+  };
 
   return (
     <aside
@@ -185,13 +187,10 @@ const DashboardSidebar = () => {
                   <NavLink
                     key={role.id}
                     to={role.path}
-                    onClick={() => {
-                      setCurrentRole(role);
-                      setRoleMenuOpen(false);
-                    }}
+                    onClick={() => handleRoleChange(role)}
                     className={cn(
                       "block px-3 py-2 text-sm hover:bg-secondary transition-colors",
-                      currentRole.id === role.id ? "bg-accent/10 text-accent" : "text-foreground"
+                      currentRole.id === role.id ? "bg-primary/10 text-primary" : "text-foreground"
                     )}
                   >
                     {role.label}
