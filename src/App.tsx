@@ -58,6 +58,7 @@ const App = () => (
           <Route path="/finance-dashboard" element={<FinanceDashboard />} />
           <Route path="/projects" element={<PortfolioPage />} />
           <Route path="/tasks" element={<TimelinePage />} />
+          <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/procurement" element={<ProcurementPage />} />
           <Route path="/vendors" element={<VendorDashboard />} />
@@ -65,25 +66,26 @@ const App = () => (
           <Route path="/ai-copilot" element={<AICopilotFullPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/reports" element={<ReportsPage />} />
-          <Route path="/messages" element={<MessagingPage />} />
+          <Route path="/messaging" element={<MessagingPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/site-inspection" element={<SiteInspectionPage />} />
           <Route path="/risk-management" element={<RiskManagementPage />} />
           <Route path="/safety-scanner" element={<SafetyScannerPage />} />
-          <Route path="/resources" element={<ResourceSchedulingPage />} />
+          <Route path="/resource-scheduling" element={<ResourceSchedulingPage />} />
           <Route path="/attendance" element={<AttendancePage />} />
-          <Route path="/daily-log" element={<DailyLogbookPage />} />
-          <Route path="/equipment" element={<EquipmentMaintenancePage />} />
-          <Route path="/notifications" element={<NotificationsPage />} />
-          <Route path="/change-order" element={<ChangeOrderPage />} />
+          <Route path="/daily-logbook" element={<DailyLogbookPage />} />
+          <Route path="/equipment-maintenance" element={<EquipmentMaintenancePage />} />
           <Route path="/subcontractor-assignment" element={<SubcontractorAssignmentPage />} />
+          <Route path="/handover-checklist" element={<HandoverChecklistPage />} />
           <Route path="/delivery-tracking" element={<DeliveryTrackingPage />} />
-          <Route path="/budget-planning" element={<BudgetPlanningPage />} />
           <Route path="/visualizer" element={<VisualizerPage />} />
           <Route path="/boq-generator" element={<BOQGeneratorPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/budget-planning" element={<BudgetPlanningPage />} />
           <Route path="/payment-release" element={<PaymentReleasePage />} />
-          <Route path="/audit-logs" element={<AuditLogsPage />} />
           <Route path="/multi-currency" element={<MultiCurrencyPage />} />
-          <Route path="/handover" element={<HandoverChecklistPage />} />
+          <Route path="/change-orders" element={<ChangeOrderPage />} />
+          <Route path="/audit-logs" element={<AuditLogsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
