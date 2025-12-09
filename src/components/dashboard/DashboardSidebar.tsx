@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "@/components/NavLink";
+import { useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -111,9 +112,26 @@ const roles = [
 ];
 
 const DashboardSidebar = () => {
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
-  const [currentRole, setCurrentRole] = useState(roles[0]);
+  
+  // Determine current role based on route
+  const getCurrentRoleFromPath = () => {
+    const path = location.pathname;
+    if (path.startsWith("/contractor")) return roles.find(r => r.id === "contractor")!;
+    if (path.startsWith("/architect")) return roles.find(r => r.id === "architect")!;
+    if (path.startsWith("/designer")) return roles.find(r => r.id === "designer")!;
+    if (path.startsWith("/vendor")) return roles.find(r => r.id === "vendor")!;
+    if (path.startsWith("/finance-dashboard")) return roles.find(r => r.id === "finance")!;
+    return roles[0]; // Default to client
+  };
+  
+  const [currentRole, setCurrentRole] = useState(getCurrentRoleFromPath);
+  
+  useEffect(() => {
+    setCurrentRole(getCurrentRoleFromPath());
+  }, [location.pathname]);
 
   return (
     <aside
