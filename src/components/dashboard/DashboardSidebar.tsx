@@ -134,23 +134,23 @@ const DashboardSidebar = () => {
   const filteredNavItems = allNavItems.filter((item) => item.roles.includes(currentRole.id));
 
   return (
-    <aside className="flex flex-col items-center h-screen w-20 bg-sidebar border-r border-sidebar-border sticky top-0 py-4">
+    <aside className="flex flex-col items-center h-screen w-28 bg-sidebar border-r border-sidebar-border sticky top-0 py-5">
       {/* Logo */}
-      <div className="mb-4">
-        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-          <Building2 className="w-6 h-6 text-primary-foreground" />
+      <div className="mb-6">
+        <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+          <Building2 className="w-7 h-7 text-primary-foreground" />
         </div>
       </div>
 
       {/* Role Switcher */}
-      <div className="mb-4 w-full px-2">
+      <div className="mb-6 w-full px-3">
         <select
           value={currentRole.id}
           onChange={(e) => {
             const role = roles.find(r => r.id === e.target.value);
             if (role) handleRoleChange(role);
           }}
-          className="w-full text-[9px] font-medium text-center bg-primary/10 border border-primary/20 rounded-lg py-1.5 text-primary cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary/50"
+          className="w-full text-[10px] font-semibold text-center bg-primary/10 border border-primary/20 rounded-lg py-2 text-primary cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
           {roles.map((role) => (
             <option key={role.id} value={role.id}>
@@ -161,7 +161,7 @@ const DashboardSidebar = () => {
       </div>
 
       {/* Main Navigation */}
-      <nav className="flex-1 flex flex-col items-center gap-1 w-full px-1.5 overflow-y-auto scrollbar-thin">
+      <nav className="flex-1 flex flex-col items-center gap-1.5 w-full px-2 overflow-y-auto scrollbar-thin">
         {filteredNavItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -169,43 +169,43 @@ const DashboardSidebar = () => {
               key={item.path}
               to={item.path}
               className={cn(
-                "flex flex-col items-center justify-center w-full py-2 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                "flex flex-col items-center justify-center w-full py-3 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
               )}
-              activeClassName="text-primary bg-primary/10"
+              activeClassName="text-primary bg-primary/15 font-semibold shadow-sm"
             >
-              <Icon className="w-5 h-5 mb-0.5" />
-              <span className="text-[9px] font-medium leading-tight text-center">{item.label}</span>
+              <Icon className="w-6 h-6 mb-1" />
+              <span className="text-[11px] font-medium leading-tight text-center">{item.label}</span>
             </NavLink>
           );
         })}
       </nav>
 
       {/* Bottom section */}
-      <div className="flex flex-col items-center gap-3 mt-auto pt-4 border-t border-sidebar-border w-full">
+      <div className="flex flex-col items-center gap-4 mt-auto pt-5 border-t border-sidebar-border w-full px-2">
         {/* Settings */}
         <NavLink
           to="/settings"
-          className="p-2 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200"
-          activeClassName="text-primary bg-primary/10"
+          className="p-3 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+          activeClassName="text-primary bg-primary/15"
         >
-          <Settings className="w-5 h-5" />
+          <Settings className="w-6 h-6" />
         </NavLink>
 
         {/* Notifications */}
         <NavLink
           to="/notifications"
-          className="relative p-2 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200"
-          activeClassName="text-primary bg-primary/10"
+          className="relative p-3 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+          activeClassName="text-primary bg-primary/15"
         >
-          <Bell className="w-5 h-5" />
+          <Bell className="w-6 h-6" />
           {hasNotification && (
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-destructive rounded-full border-2 border-sidebar" />
           )}
         </NavLink>
 
         {/* User Avatar */}
-        <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center mt-1 mb-2">
-          <User className="w-5 h-5 text-muted-foreground" />
+        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center mt-2 mb-3 ring-2 ring-primary/20">
+          <User className="w-6 h-6 text-primary" />
         </div>
       </div>
     </aside>
