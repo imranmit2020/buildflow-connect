@@ -134,7 +134,7 @@ const DashboardSidebar = () => {
   const filteredNavItems = allNavItems.filter((item) => item.roles.includes(currentRole.id));
 
   return (
-    <aside className="flex flex-col items-center h-screen w-32 bg-background border-r border-border sticky top-0 py-8">
+    <aside className="flex flex-col items-center h-screen w-[8.5rem] bg-background border-r border-border sticky top-0 py-8">
       {/* Logo */}
       <div className="mb-8">
         <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
