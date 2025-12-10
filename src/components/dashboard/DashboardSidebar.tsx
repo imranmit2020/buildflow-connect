@@ -161,7 +161,7 @@ const DashboardSidebar = () => {
       </div>
 
       {/* Main Navigation */}
-      <nav className="flex-1 flex flex-col items-center w-full px-3 overflow-y-auto">
+      <nav className="flex-1 flex flex-col items-center w-full px-3 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]">
         {filteredNavItems.map((item) => {
           const Icon = item.icon;
           return (
