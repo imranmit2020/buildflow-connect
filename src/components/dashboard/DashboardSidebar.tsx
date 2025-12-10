@@ -134,7 +134,7 @@ const DashboardSidebar = () => {
   const filteredNavItems = allNavItems.filter((item) => item.roles.includes(currentRole.id));
 
   return (
-    <aside className="flex flex-col items-center h-screen w-24 bg-background border-r border-border sticky top-0 py-8">
+    <aside className="flex flex-col items-center h-screen w-28 bg-background border-r border-border sticky top-0 py-8">
       {/* Logo */}
       <div className="mb-8">
         <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -150,7 +150,7 @@ const DashboardSidebar = () => {
             const role = roles.find(r => r.id === e.target.value);
             if (role) handleRoleChange(role);
           }}
-          className="w-full text-[10px] font-medium text-center bg-transparent border border-border rounded-md py-1.5 text-foreground cursor-pointer focus:outline-none focus:border-primary"
+          className="w-full text-[9px] font-medium text-center bg-transparent border border-border rounded-md py-1.5 text-foreground cursor-pointer focus:outline-none focus:border-primary"
         >
           {roles.map((role) => (
             <option key={role.id} value={role.id}>
