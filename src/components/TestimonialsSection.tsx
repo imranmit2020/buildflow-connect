@@ -1,4 +1,4 @@
-import { Star, Quote, Building2, Users, Trophy } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -7,15 +7,13 @@ const testimonials = [
     role: "Director of Operations",
     company: "Meridian Construction Group",
     rating: 5,
-    avatar: "SC",
   },
   {
-    quote: "Finally, a platform that understands the complexity of construction finance. Our AP/AR team went from chaos to clarity overnight. The ROI was immediate.",
+    quote: "Finally, a platform that understands the complexity of construction finance. Our AP/AR team went from chaos to clarity overnight.",
     author: "Michael Torres",
     role: "CFO",
     company: "Atlas Builders International",
     rating: 5,
-    avatar: "MT",
   },
   {
     quote: "As an interior designer working with multiple contractors, Construq keeps all my renders, material specs, and vendor communications in one place. Game-changer.",
@@ -23,103 +21,67 @@ const testimonials = [
     role: "Principal Designer",
     company: "Studio ER Interiors",
     rating: 5,
-    avatar: "ER",
   },
-];
-
-const logos = [
-  { name: "Turner", icon: Building2 },
-  { name: "Bechtel", icon: Building2 },
-  { name: "Skanska", icon: Building2 },
-  { name: "Fluor", icon: Building2 },
-  { name: "Jacobs", icon: Building2 },
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/3 rounded-full blur-[150px]" />
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-            <Trophy className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-accent">Customer Success</span>
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Trusted by Industry
-            <br />
-            <span className="text-gradient-accent">Leaders Worldwide</span>
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="inline-block px-4 py-2 bg-teal-50 text-teal-600 font-semibold text-sm rounded-full mb-4">
+            Testimonials
+          </span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Loved by Industry Leaders
           </h2>
-          <p className="text-lg text-muted-foreground">
-            See why the world's leading construction companies choose Construq.
-          </p>
         </div>
 
         {/* Testimonials grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-20">
-          {testimonials.map((testimonial, index) => (
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial) => (
             <div
               key={testimonial.author}
-              className="group relative bg-card rounded-3xl p-8 border border-border shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 relative"
             >
               {/* Quote icon */}
-              <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center shadow-lg rotate-12 group-hover:rotate-0 transition-transform duration-300">
-                <Quote className="w-6 h-6 text-accent-foreground" />
+              <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                <Quote className="w-5 h-5 text-white" />
               </div>
 
               {/* Rating */}
-              <div className="flex gap-1 mb-6">
+              <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 fill-gold text-gold"
+                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
                   />
                 ))}
               </div>
 
               {/* Quote */}
-              <p className="text-foreground mb-8 leading-relaxed">
+              <p className="text-slate-600 mb-6 text-sm leading-relaxed">
                 "{testimonial.quote}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground font-semibold">
-                  {testimonial.avatar}
-                </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-emerald-400" />
                 <div>
-                  <div className="font-display font-semibold text-foreground">
+                  <div className="font-semibold text-slate-900 text-sm">
                     {testimonial.author}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-xs text-slate-500">
                     {testimonial.role}
                   </div>
-                  <div className="text-sm text-primary font-medium">
+                  <div className="text-xs text-teal-600 font-medium">
                     {testimonial.company}
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Logos section */}
-        <div className="border-t border-border pt-16">
-          <p className="text-center text-sm text-muted-foreground mb-8 uppercase tracking-wider">
-            Trusted by leading construction enterprises
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-12 opacity-60">
-            {logos.map((logo) => (
-              <div key={logo.name} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-                <logo.icon className="w-6 h-6" />
-                <span className="font-display font-semibold text-lg">{logo.name}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

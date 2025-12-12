@@ -1,88 +1,131 @@
-import { ArrowRight, Sparkles, Check, Play } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Check, BarChart3, Search, Truck } from "lucide-react";
 
-const benefits = [
-  "14-day free trial",
-  "No credit card required",
-  "Full feature access",
-  "Dedicated onboarding",
+const modules = [
+  {
+    title: "Project Management",
+    subtitle: "Pillars of smart work",
+    icon: BarChart3,
+    color: "from-yellow-400 to-teal-400",
+    features: ["Task auto assign", "Manage Slippages"],
+  },
+  {
+    title: "Material Procurement",
+    subtitle: "Auto-generated BOQ",
+    icon: Search,
+    features: ["Real-time-insights", "Variance alerts", "Milestone: Based"],
+    hasSubItems: true,
+    subItems: ["Vendor-spense", "Delivery meeting map"],
+  },
+  {
+    title: "Financial Intelligence",
+    subtitle: "",
+    icon: BarChart3,
+    features: ["Real-time Insights", "Variance alerts", "Milestone Based Payments"],
+    hasChart: true,
+  },
 ];
 
 const CTASection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-hero relative overflow-hidden noise-overlay">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] animate-float-slow" />
-        <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 mb-8">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary-foreground/90">
-              Start Building Today
-            </span>
-          </div>
-
-          {/* Main heading */}
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-foreground leading-tight mb-6">
-            Ready to Transform Your
-            <br />
-            <span className="text-gradient">Construction Workflow?</span>
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900">
+            For Requisite Management
           </h2>
-
-          <p className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Join 500+ enterprises that have revolutionized their construction 
-            operations with Construq's AI-powered platform.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-primary-foreground px-8 py-6 text-base shadow-glow animate-pulse-glow group">
-              Start Free Trial
-              <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 px-8 py-6 text-base group">
-              <Play className="w-5 h-5 mr-2" />
-              Schedule Demo
-            </Button>
-          </div>
-
-          {/* Benefits */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-primary-foreground/80">
-            {benefits.map((benefit) => (
-              <div key={benefit} className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Check className="w-3 h-3 text-accent" />
-                </div>
-                <span className="text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Bottom decoration */}
-        <div className="mt-20 pt-12 border-t border-primary-foreground/10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { value: "500+", label: "Enterprise Clients" },
-              { value: "99.9%", label: "Uptime SLA" },
-              { value: "$2.4B", label: "Projects Managed" },
-              { value: "24/7", label: "Support Available" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-2xl md:text-3xl font-display font-bold text-primary-foreground mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-primary-foreground/60">{stat.label}</div>
+        {/* Modules grid */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Project Management */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+            <h3 className="font-semibold text-lg text-slate-900 mb-1">Project Management</h3>
+            <p className="text-sm text-slate-500 mb-6">Pillars of smart work</p>
+            
+            {/* Mini chart visualization */}
+            <div className="flex items-end gap-1 h-24 mb-6">
+              {[40, 60, 35, 80, 55, 70, 45, 85, 50].map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 bg-gradient-to-t from-yellow-400 to-teal-400 rounded-t"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+
+            <ul className="space-y-2">
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Task auto assign
+              </li>
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Manage Slippages
+              </li>
+            </ul>
+          </div>
+
+          {/* Material Procurement */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+            <h3 className="font-semibold text-lg text-slate-900 mb-1">Material Procurement</h3>
+            <p className="text-sm text-slate-500 mb-6">Auto-generated BOQ</p>
+            
+            {/* Sub items */}
+            <div className="space-y-2 mb-6">
+              <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+                <Search className="w-4 h-4 text-teal-500" />
+                <span className="text-sm text-slate-700">Vendor-spense</span>
               </div>
-            ))}
+              <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+                <Truck className="w-4 h-4 text-blue-500" />
+                <span className="text-sm text-slate-700">Delivery meeting map</span>
+              </div>
+            </div>
+
+            <ul className="space-y-2">
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Real-time-insights
+              </li>
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Variance alerts
+              </li>
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Milestone: Based
+              </li>
+            </ul>
+          </div>
+
+          {/* Financial Intelligence */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+            <h3 className="font-semibold text-lg text-slate-900 mb-1">Financial Intelligence</h3>
+            <p className="text-sm text-slate-500 mb-6">&nbsp;</p>
+            
+            {/* Bar chart visualization */}
+            <div className="flex items-end justify-center gap-3 h-24 mb-6">
+              <div className="w-8 bg-gradient-to-t from-teal-500 to-teal-300 rounded-t h-16" />
+              <div className="w-8 bg-gradient-to-t from-teal-500 to-teal-300 rounded-t h-20" />
+              <div className="w-8 bg-gradient-to-t from-blue-500 to-blue-300 rounded-t h-12" />
+              <div className="w-8 bg-gradient-to-t from-yellow-500 to-yellow-300 rounded-t h-8" />
+            </div>
+
+            <ul className="space-y-2">
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Real-time Insights
+              </li>
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Variance alerts
+              </li>
+              <li className="flex items-center gap-2 text-slate-600 text-sm">
+                <Check className="w-4 h-4 text-teal-500" />
+                Milestone Based Payments
+              </li>
+            </ul>
           </div>
         </div>
       </div>

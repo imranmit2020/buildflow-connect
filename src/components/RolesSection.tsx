@@ -6,118 +6,88 @@ import {
   CheckCircle2,
   FileText,
   PlusCircle,
-  Bot,
-  ArrowRight
+  LayoutGrid
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const roles = [
   {
-    title: "Clients",
-    subtitle: "Real-time project visibility",
+    title: "Client",
+    subtitle: "Frequent schedulers",
     icon: TrendingUp,
-    gradient: "from-primary to-primary/60",
+    color: "bg-teal-500",
   },
   {
-    title: "Contractors",
-    subtitle: "Unified team coordination",
+    title: "Contractor",
+    subtitle: "Uncoordinated teams",
     icon: Zap,
-    gradient: "from-accent to-accent/60",
+    color: "bg-teal-500",
   },
   {
-    title: "Architects",
-    subtitle: "Seamless design integration",
+    title: "Architect",
+    subtitle: "Costly design errors",
     icon: Layers,
-    gradient: "from-primary to-accent",
+    color: "bg-teal-500",
   },
   {
-    title: "Interior Designers",
-    subtitle: "Client collaboration hub",
+    title: "Interior Designer",
+    subtitle: "Client Recession",
     icon: User,
-    gradient: "from-gold to-gold/80",
+    color: "bg-orange-400",
   },
   {
-    title: "Vendors",
-    subtitle: "Automated BOQ tracking",
+    title: "Vendor",
+    subtitle: "Manual BOQ-tracking",
     icon: CheckCircle2,
-    gradient: "from-accent to-accent/60",
+    color: "bg-teal-500",
   },
   {
-    title: "Subcontractors",
-    subtitle: "Live document access",
+    title: "Subcontractor",
+    subtitle: "Outdated documents",
     icon: FileText,
-    gradient: "from-primary to-primary/60",
+    color: "bg-teal-500",
   },
   {
-    title: "Finance Teams",
-    subtitle: "Invoice automation",
+    title: "Finance",
+    subtitle: "Invoice-chaining",
     icon: PlusCircle,
-    gradient: "from-gold to-gold/80",
+    color: "bg-teal-500",
   },
   {
     title: "AI Copilot",
-    subtitle: "24/7 intelligent assistant",
-    icon: Bot,
-    gradient: "from-primary to-accent",
+    subtitle: "(OI./Bin)",
+    icon: LayoutGrid,
+    color: "bg-teal-500",
   },
 ];
 
 const RolesSection = () => {
   return (
-    <section id="roles" className="py-24 lg:py-32 bg-secondary relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 pattern-dots opacity-50" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-slate-50">
+      <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <User className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Role-Based Solutions</span>
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Built for Every Role in the
-            <br />
-            <span className="text-gradient">Construction Ecosystem</span>
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900">
+            Made for Every Role in the Build Cycle
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Tailored experiences that empower every stakeholder with the tools they need to excel.
-          </p>
         </div>
 
         {/* Roles grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto mb-16">
-          {roles.map((role, index) => {
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          {roles.map((role) => {
             const Icon = role.icon;
             return (
               <div
                 key={role.title}
-                className="group bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-1 cursor-pointer"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow"
               >
-                {/* Icon */}
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${role.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className="w-6 h-6 text-primary-foreground" />
+                <p className="font-semibold text-slate-900 mb-1">{role.title}</p>
+                <p className="text-sm text-slate-500 mb-4">{role.subtitle}</p>
+                <div className={`w-14 h-14 ${role.color} rounded-2xl flex items-center justify-center mx-auto`}>
+                  <Icon className="w-7 h-7 text-white" />
                 </div>
-
-                {/* Content */}
-                <h3 className="font-display font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                  {role.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {role.subtitle}
-                </p>
               </div>
             );
           })}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center">
-          <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-primary-foreground px-8 shadow-glow group">
-            Explore All Solutions
-            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-          </Button>
         </div>
       </div>
     </section>
