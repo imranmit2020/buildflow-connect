@@ -35,10 +35,12 @@ import {
   Store,
   GitBranch,
   User,
+  HardHat,
+  Award,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type RoleId = "client" | "contractor" | "architect" | "designer" | "vendor" | "finance";
+type RoleId = "client" | "contractor" | "architect" | "designer" | "vendor" | "finance" | "labor";
 
 interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -55,9 +57,16 @@ const allNavItems: NavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/designer", roles: ["designer"] },
   { icon: LayoutDashboard, label: "Dashboard", path: "/vendor", roles: ["vendor"] },
   { icon: LayoutDashboard, label: "Dashboard", path: "/finance-dashboard", roles: ["finance"] },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/labor", roles: ["labor"] },
   
   // Marketplace
   { icon: Store, label: "Marketplace", path: "/marketplace", roles: ["client", "contractor", "architect", "designer"] },
+  { icon: HardHat, label: "Hire Labor", path: "/labor-marketplace", roles: ["client", "contractor"] },
+  
+  // Labor specific
+  { icon: Briefcase, label: "My Jobs", path: "/labor", roles: ["labor"] },
+  { icon: Award, label: "Profile", path: "/labor", roles: ["labor"] },
+  { icon: Calendar, label: "Availability", path: "/labor", roles: ["labor"] },
   
   // Projects & Planning
   { icon: FolderKanban, label: "Projects", path: "/projects", roles: ["client", "contractor", "architect", "designer"] },
@@ -110,6 +119,7 @@ const roles = [
   { id: "designer" as RoleId, label: "Designer", path: "/designer" },
   { id: "vendor" as RoleId, label: "Vendor", path: "/vendor" },
   { id: "finance" as RoleId, label: "Finance", path: "/finance-dashboard" },
+  { id: "labor" as RoleId, label: "Labor", path: "/labor" },
 ];
 
 const DashboardSidebar = () => {

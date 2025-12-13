@@ -40,6 +40,8 @@ import HandoverChecklistPage from "./pages/HandoverChecklistPage";
 import LoginPage from "./pages/LoginPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import WorkflowPage from "./pages/WorkflowPage";
+import LaborDashboard from "./pages/LaborDashboard";
+import LaborMarketplacePage from "./pages/LaborMarketplacePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -92,6 +94,8 @@ const App = () => (
           <Route path="/audit-logs" element={<AuditLogsPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="/workflow" element={<WorkflowPage />} />
+          <Route path="/labor" element={<LaborDashboard />} />
+          <Route path="/labor-marketplace" element={<LaborMarketplacePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
