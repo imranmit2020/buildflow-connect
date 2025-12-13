@@ -9,6 +9,8 @@ import {
   LayoutGrid
 } from "lucide-react";
 
+import { HardHat } from "lucide-react";
+
 const roles = [
   {
     title: "Client",
@@ -33,6 +35,12 @@ const roles = [
     subtitle: "Client Recession",
     icon: User,
     color: "bg-orange-400",
+  },
+  {
+    title: "Labor",
+    subtitle: "AI-Matched Hiring",
+    icon: HardHat,
+    color: "bg-blue-500",
   },
   {
     title: "Vendor",
