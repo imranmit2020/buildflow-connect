@@ -6,19 +6,15 @@ const Footer = () => {
     <footer className="relative overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center opacity-40"
         style={{ backgroundImage: `url(${footerBg})` }}
       />
       
-      {/* Dark overlay with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/90 to-primary/80" />
+      {/* Dark base */}
+      <div className="absolute inset-0 bg-slate-900" style={{ zIndex: -1 }} />
       
-      {/* Geometric pattern overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-64 h-64 border border-white/20 rotate-45 -translate-x-32 -translate-y-32" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 border border-white/20 rotate-12 translate-x-32 translate-y-32" />
-        <div className="absolute top-1/2 left-1/3 w-48 h-48 border border-white/10 -rotate-12" />
-      </div>
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-slate-900/80" />
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-16">
