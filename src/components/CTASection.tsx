@@ -145,21 +145,34 @@ const CTASection = () => {
           </div>
         </div>
 
-        {/* AI Banner */}
+        {/* Agentic AI Banner */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 overflow-hidden">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
             <div className="relative flex flex-col md:flex-row items-center gap-6">
-              <div className="w-16 h-16 rounded-2xl bg-primary-foreground/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-16 h-16 rounded-2xl bg-primary-foreground/20 flex items-center justify-center flex-shrink-0 relative">
                 <Bot className="w-8 h-8 text-primary-foreground" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-400 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                </div>
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-xl font-semibold text-primary-foreground mb-2">
-                  AI Copilot included with every plan
+                  Agentic AI that works while you sleep
                 </h3>
                 <p className="text-primary-foreground/80 text-sm">
-                  Get intelligent recommendations, automated workflows, and predictive insights across all modules.
+                  Deploy AI agents that autonomously plan, execute, and optimize — making thousands of intelligent decisions daily without human intervention.
                 </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-primary-foreground/20 border-2 border-primary flex items-center justify-center">
+                      <Bot className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                  ))}
+                </div>
+                <span className="text-xs text-primary-foreground/80">+11 agents</span>
               </div>
             </div>
           </div>

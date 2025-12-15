@@ -1,23 +1,23 @@
-import { Sparkles, ShoppingCart, DollarSign, Check, ArrowRight, Brain, Zap, Shield } from "lucide-react";
+import { Sparkles, ShoppingCart, DollarSign, Check, ArrowRight, Brain, Zap, Shield, Bot, Network, Eye } from "lucide-react";
 
 const features = [
   {
-    icon: Brain,
-    title: "AI Project Orchestration",
-    description: "Intelligent automation that predicts, optimizes, and executes.",
-    items: ["Predictive delay analysis", "Smart task assignment", "Auto-optimized scheduling"],
+    icon: Bot,
+    title: "Autonomous Schedule Agent",
+    description: "Self-optimizing AI that continuously plans, adjusts, and executes project timelines.",
+    items: ["Auto-reschedules around delays", "Proactive resource allocation", "24/7 timeline optimization"],
   },
   {
-    icon: ShoppingCart,
-    title: "Smart Procurement",
-    description: "From BOQ to delivery, completely automated.",
-    items: ["AI-generated BOQ", "Real-time vendor comparison", "Live delivery tracking"],
+    icon: Network,
+    title: "Procurement Agent Swarm",
+    description: "Multiple AI agents working in parallel to source, compare, and negotiate.",
+    items: ["Multi-vendor negotiation", "Autonomous reordering", "Price anomaly detection"],
   },
   {
-    icon: DollarSign,
-    title: "Financial Intelligence",
-    description: "Complete visibility and control over project finances.",
-    items: ["Automated milestone payments", "Variance forecasting", "Invoice verification"],
+    icon: Eye,
+    title: "Predictive Risk Agent",
+    description: "Always-on monitoring that detects, prevents, and resolves issues before they happen.",
+    items: ["Early warning system", "Auto-mitigation actions", "Learning from patterns"],
   },
 ];
 
@@ -31,15 +31,16 @@ const FeaturesSection = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-medium text-primary">Intelligent Features</span>
+            <Bot className="w-3.5 h-3.5 text-primary" />
+            <span className="text-xs font-medium text-primary">Multi-Agent Architecture</span>
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           </div>
           <h2 className="text-3xl md:text-4xl font-medium text-foreground mb-4 tracking-tight">
-            Construction projects that
-            <span className="font-serif italic text-primary"> run themselves</span>
+            Specialized AI agents that
+            <span className="font-serif italic text-primary"> think, act, and learn</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            AI-powered automation for every stage of your construction workflow.
+            Deploy autonomous agents that collaborate, make decisions, and continuously improve your operations.
           </p>
         </div>
 
@@ -87,10 +88,10 @@ const FeaturesSection = () => {
         {/* Bottom stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
           {[
-            { icon: Zap, value: '60%', label: 'Faster project delivery' },
-            { icon: DollarSign, value: '35%', label: 'Cost reduction' },
-            { icon: Shield, value: '99.9%', label: 'Platform uptime' },
-            { icon: Brain, value: '24/7', label: 'AI assistance' },
+            { icon: Bot, value: '15+', label: 'Specialized AI agents' },
+            { icon: Zap, value: '10K+', label: 'Autonomous decisions/day' },
+            { icon: Shield, value: '94%', label: 'Issues auto-resolved' },
+            { icon: Brain, value: '24/7', label: 'Always learning' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">

@@ -17,28 +17,29 @@ const HeroSection = () => {
         {/* AI Badge */}
         <div className="flex justify-center mb-8 animate-fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10">
-            <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+            <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
               <Sparkles className="w-3 h-3 text-primary" />
             </div>
-            <span className="text-sm font-medium text-primary">Powered by Advanced AI</span>
+            <span className="text-sm font-medium text-primary">Autonomous AI Agents at Work</span>
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           </div>
         </div>
 
         {/* Main headline */}
         <div className="text-center max-w-4xl mx-auto mb-8 animate-fade-up delay-100">
           <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-medium text-foreground leading-[1.1] tracking-tight">
-            The only{" "}
-            <span className="font-serif italic text-primary">AI-first</span>{" "}
-            all-in-one
+            AI Agents that{" "}
+            <span className="font-serif italic text-primary">build, manage</span>{" "}
+            and
             <br className="hidden sm:block" />
-            construction platform
+            <span className="font-serif italic text-primary">optimize</span> your projects
           </h1>
         </div>
 
         {/* Subtitle */}
         <p className="text-center text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up delay-200">
-          Orchestrate projects, materials, teams, and finances — automatically. 
-          Construq brings together everything you need with AI built into every workflow.
+          Deploy autonomous AI agents that work 24/7 — planning schedules, sourcing materials, 
+          detecting risks, and making decisions. Your projects run themselves.
         </p>
 
         {/* CTA Buttons */}
@@ -149,28 +150,47 @@ const HeroSection = () => {
                   </div>
                 </div>
 
-                {/* Right sidebar - AI Panel */}
+                {/* Right sidebar - AI Agents Panel */}
                 <div className="col-span-3 space-y-3">
                   <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-5 h-5 bg-primary rounded-lg flex items-center justify-center">
+                      <div className="w-5 h-5 bg-primary rounded-lg flex items-center justify-center animate-pulse">
                         <Bot className="w-3 h-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-foreground">AI Copilot</span>
+                      <span className="text-xs font-medium text-foreground">AI Agents</span>
+                      <div className="ml-auto flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-[9px] text-green-600">5 active</span>
+                      </div>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mb-2">3 optimization suggestions available</p>
-                    <div className="text-[9px] bg-primary/10 text-primary px-2 py-1 rounded-md">
-                      "Schedule conflict detected in Week 12"
+                    <div className="space-y-1.5">
+                      {[
+                        { name: 'Schedule Agent', status: 'Optimizing' },
+                        { name: 'Procurement Agent', status: 'Sourcing' },
+                        { name: 'Risk Agent', status: 'Monitoring' },
+                      ].map((agent) => (
+                        <div key={agent.name} className="flex items-center justify-between text-[9px] bg-background/50 px-2 py-1 rounded-md">
+                          <span className="text-foreground">{agent.name}</span>
+                          <span className="text-primary">{agent.status}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   
                   <div className="bg-card border border-border rounded-xl p-3">
-                    <div className="text-[10px] text-muted-foreground mb-2">Recent Activity</div>
+                    <div className="text-[10px] text-muted-foreground mb-2">Agent Actions Today</div>
                     <div className="space-y-2">
-                      {['Invoice approved', 'Material delivered', 'Inspection passed'].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-[10px] text-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                          {item}
+                      {[
+                        { action: 'Auto-approved invoice #2847', time: '2m ago' },
+                        { action: 'Rescheduled 3 delayed tasks', time: '15m ago' },
+                        { action: 'Ordered backup materials', time: '1h ago' },
+                      ].map((item) => (
+                        <div key={item.action} className="flex items-start gap-2 text-[10px]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1 flex-shrink-0" />
+                          <div>
+                            <div className="text-foreground">{item.action}</div>
+                            <div className="text-muted-foreground">{item.time}</div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -183,10 +203,22 @@ const HeroSection = () => {
           {/* Floating elements */}
           <div className="absolute -top-6 right-12 bg-primary text-primary-foreground rounded-xl px-4 py-3 shadow-lg shadow-primary/30 animate-float">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
+              <Bot className="w-4 h-4" />
               <div>
-                <div className="text-xs font-semibold">AI Insight</div>
-                <div className="text-[10px] opacity-80">Save 12% on materials</div>
+                <div className="text-xs font-semibold">Agent Action</div>
+                <div className="text-[10px] opacity-80">Auto-negotiated 12% savings</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="absolute -bottom-4 left-16 bg-card border border-primary/20 text-foreground rounded-xl px-4 py-3 shadow-lg animate-float delay-500">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              </div>
+              <div>
+                <div className="text-xs font-semibold">Risk Agent</div>
+                <div className="text-[10px] text-muted-foreground">Prevented delay: Week 8</div>
               </div>
             </div>
           </div>
