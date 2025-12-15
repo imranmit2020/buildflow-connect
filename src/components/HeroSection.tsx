@@ -60,19 +60,6 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Social proof */}
-        <div className="text-center mb-16 animate-fade-up delay-400">
-          <p className="text-sm text-muted-foreground mb-6">
-            Trusted by <span className="font-semibold text-foreground">500+</span> construction teams worldwide
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {['Turner', 'Skanska', 'Bechtel', 'AECOM', 'PCL', 'Kiewit'].map((company) => (
-              <span key={company} className="text-base font-semibold text-foreground/40 tracking-tight hover:text-foreground/60 transition-colors">
-                {company}
-              </span>
-            ))}
-          </div>
-        </div>
 
         {/* Dashboard Preview */}
         <div className="relative max-w-5xl mx-auto animate-fade-up delay-500">
