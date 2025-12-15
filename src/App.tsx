@@ -42,6 +42,7 @@ import MarketplacePage from "./pages/MarketplacePage";
 import WorkflowPage from "./pages/WorkflowPage";
 import LaborDashboard from "./pages/LaborDashboard";
 import LaborMarketplacePage from "./pages/LaborMarketplacePage";
+import DataLabelingPage from "./pages/DataLabelingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -96,6 +97,7 @@ const App = () => (
           <Route path="/workflow" element={<WorkflowPage />} />
           <Route path="/labor" element={<LaborDashboard />} />
           <Route path="/labor-marketplace" element={<LaborMarketplacePage />} />
+          <Route path="/data-labeling" element={<DataLabelingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
