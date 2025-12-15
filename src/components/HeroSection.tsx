@@ -1,75 +1,73 @@
 import { Button } from "@/components/ui/button";
-import { Play, Bot, AlertTriangle, Wifi, Star } from "lucide-react";
+import { Bot, Sparkles, ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-background overflow-hidden pt-20">
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-background to-background" />
+    <section className="relative bg-background overflow-hidden pt-24 pb-16">
+      {/* Sophisticated gradient mesh */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-gradient-to-br from-primary/8 via-primary/4 to-transparent rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-primary/6 to-transparent rounded-full blur-[100px]" />
+      </div>
       
-      {/* Decorative shapes */}
-      <div className="absolute top-40 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-100/30 to-transparent rounded-full blur-[100px]" />
-      <div className="absolute top-60 left-0 w-[400px] h-[400px] bg-gradient-to-br from-blue-50/40 to-transparent rounded-full blur-[80px]" />
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 
-      <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
-        {/* Badge */}
-        <div className="text-center mb-8">
-          <span className="inline-block text-primary font-semibold text-sm tracking-wide uppercase">
-            AI-First Construction Platform
-          </span>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* AI Badge */}
+        <div className="flex justify-center mb-8 animate-fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10">
+            <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+              <Sparkles className="w-3 h-3 text-primary" />
+            </div>
+            <span className="text-sm font-medium text-primary">Powered by Advanced AI</span>
+          </div>
         </div>
 
         {/* Main headline */}
-        <div className="text-center max-w-4xl mx-auto mb-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-foreground leading-[1.1] tracking-tight">
+        <div className="text-center max-w-4xl mx-auto mb-8 animate-fade-up delay-100">
+          <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-medium text-foreground leading-[1.1] tracking-tight">
             The only{" "}
-            <span className="font-serif-italic text-primary">AI-first</span>{" "}
+            <span className="font-serif italic text-primary">AI-first</span>{" "}
             all-in-one
-            <br />
+            <br className="hidden sm:block" />
             construction platform
           </h1>
         </div>
 
         {/* Subtitle */}
-        <p className="text-center text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-center text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up delay-200">
           Orchestrate projects, materials, teams, and finances — automatically. 
-          One platform for contractors, architects, designers, and project owners. Zero chaos.
+          Construq brings together everything you need with AI built into every workflow.
         </p>
 
-        {/* CTA Button */}
-        <div className="flex justify-center mb-10">
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-up delay-300">
           <Button 
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-medium rounded-lg shadow-lg shadow-primary/20"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-medium rounded-xl shadow-lg shadow-primary/25 group"
           >
             Request a demo
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+          <Button 
+            variant="outline"
+            size="lg"
+            className="px-8 py-6 text-base font-medium rounded-xl border-border hover:bg-muted group"
+          >
+            <Play className="w-4 h-4 mr-2 text-primary" />
+            Watch demo
           </Button>
         </div>
 
         {/* Social proof */}
-        <div className="flex items-center justify-center gap-2 mb-16">
-          <div className="flex">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Star 
-                key={i} 
-                className={`w-4 h-4 ${i <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-yellow-400 fill-yellow-400'}`}
-              />
-            ))}
-          </div>
-          <span className="text-sm text-muted-foreground ml-1">4.8/5 on</span>
-          <span className="text-sm font-medium text-foreground">G2</span>
-          <span className="text-muted-foreground mx-2">•</span>
-          <span className="text-sm text-muted-foreground">and more</span>
-        </div>
-
-        {/* Trust bar */}
-        <div className="text-center mb-12">
-          <p className="text-sm text-muted-foreground mb-8">
-            Trusted by 500+ construction teams worldwide
+        <div className="text-center mb-16 animate-fade-up delay-400">
+          <p className="text-sm text-muted-foreground mb-6">
+            Trusted by <span className="font-semibold text-foreground">500+</span> construction teams worldwide
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-60">
-            {['Turner Construction', 'Skanska', 'Bechtel', 'AECOM', 'PCL', 'Kiewit'].map((company) => (
-              <span key={company} className="text-lg font-semibold text-foreground/70 tracking-tight">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            {['Turner', 'Skanska', 'Bechtel', 'AECOM', 'PCL', 'Kiewit'].map((company) => (
+              <span key={company} className="text-base font-semibold text-foreground/40 tracking-tight hover:text-foreground/60 transition-colors">
                 {company}
               </span>
             ))}
@@ -77,124 +75,132 @@ const HeroSection = () => {
         </div>
 
         {/* Dashboard Preview */}
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-5xl mx-auto animate-fade-up delay-500">
+          {/* Glow effect */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-3xl blur-2xl opacity-50" />
+          
           {/* Main dashboard card */}
-          <div className="relative bg-card rounded-2xl shadow-2xl shadow-foreground/5 p-4 border border-border">
+          <div className="relative bg-card rounded-2xl shadow-2xl shadow-foreground/5 border border-border overflow-hidden">
             {/* Browser header */}
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-muted/30">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-destructive/60" />
                 <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
               </div>
-              <div className="flex-1 flex items-center gap-2 px-3">
-                <span className="text-primary text-sm font-medium">Construq</span>
-                <div className="flex gap-4 text-xs text-muted-foreground">
-                  <span>Dashboard</span>
-                  <span>Projects</span>
-                  <span>Timeline</span>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-background border border-border">
+                  <div className="w-3 h-3 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                  </div>
+                  <span className="text-xs text-muted-foreground">app.construq.io/dashboard</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-muted" />
-                <div className="w-6 h-6 rounded-full bg-primary" />
+                <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                  <Bot className="w-3 h-3 text-primary-foreground" />
+                </div>
               </div>
             </div>
 
             {/* Dashboard content */}
-            <div className="grid grid-cols-12 gap-3">
-              {/* Sidebar */}
-              <div className="col-span-2 space-y-2">
-                <div className="text-primary text-xs font-semibold mb-3">Projects</div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground py-1">
-                  <div className="w-4 h-4 bg-muted rounded" />
-                  <span>Overview</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs py-1">
-                  <div className="w-4 h-4 bg-primary rounded" />
-                  <span className="text-primary-foreground bg-primary px-2 py-0.5 rounded text-[10px]">Active</span>
-                </div>
-              </div>
-
-              {/* Main content area */}
-              <div className="col-span-7 space-y-3">
-                {/* Timeline/Gantt */}
-                <div className="bg-muted/50 rounded-lg p-3">
-                  <div className="text-[10px] text-muted-foreground mb-2">Project Timeline</div>
-                  <div className="grid grid-cols-6 gap-1 text-[8px] text-muted-foreground mb-2">
-                    <span>Week 1</span>
-                    <span>Week 2</span>
-                    <span>Week 3</span>
-                    <span>Week 4</span>
-                    <span>Week 5</span>
-                    <span>Week 6</span>
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="h-4 bg-primary rounded-full w-3/4" />
-                    <div className="h-4 bg-green-500 rounded-full w-1/2" />
-                    <div className="h-4 bg-yellow-400 rounded-full w-2/3" />
-                  </div>
+            <div className="p-6 bg-gradient-to-b from-muted/20 to-background">
+              <div className="grid grid-cols-12 gap-4">
+                {/* Sidebar */}
+                <div className="col-span-2 space-y-3">
+                  <div className="text-primary text-xs font-semibold mb-4">WORKSPACE</div>
+                  {['Dashboard', 'Projects', 'Timeline', 'Reports'].map((item, i) => (
+                    <div key={item} className={`flex items-center gap-2 text-xs py-2 px-2 rounded-lg ${i === 0 ? 'bg-primary/10 text-primary' : 'text-muted-foreground'}`}>
+                      <div className={`w-3 h-3 rounded ${i === 0 ? 'bg-primary' : 'bg-muted'}`} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Stats row */}
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="bg-card border border-border rounded-lg p-2 text-center">
-                    <div className="text-[10px] text-muted-foreground">Budget</div>
-                    <div className="text-sm font-semibold text-foreground">$2.4M</div>
+                {/* Main content area */}
+                <div className="col-span-7 space-y-4">
+                  {/* Header stats */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { label: 'Active Projects', value: '12', change: '+2 this month' },
+                      { label: 'Total Budget', value: '$24.5M', change: '92% allocated' },
+                      { label: 'Team Members', value: '48', change: '6 online now' },
+                    ].map((stat) => (
+                      <div key={stat.label} className="bg-card border border-border rounded-xl p-3">
+                        <div className="text-[10px] text-muted-foreground mb-1">{stat.label}</div>
+                        <div className="text-lg font-semibold text-foreground">{stat.value}</div>
+                        <div className="text-[10px] text-primary">{stat.change}</div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="bg-card border border-border rounded-lg p-2 text-center">
-                    <div className="text-[10px] text-muted-foreground">Spent</div>
-                    <div className="text-sm font-semibold text-foreground">$1.8M</div>
-                  </div>
-                  <div className="bg-card border border-border rounded-lg p-2 text-center">
-                    <div className="text-[10px] text-muted-foreground">Progress</div>
-                    <div className="text-sm font-semibold text-primary">75%</div>
+
+                  {/* Timeline/Gantt */}
+                  <div className="bg-card border border-border rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-medium text-foreground">Project Timeline</span>
+                      <span className="text-[10px] text-muted-foreground">Q4 2024</span>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { name: 'Foundation', progress: 100, color: 'bg-green-500' },
+                        { name: 'Structure', progress: 75, color: 'bg-primary' },
+                        { name: 'Electrical', progress: 45, color: 'bg-primary' },
+                        { name: 'Finishing', progress: 20, color: 'bg-yellow-500' },
+                      ].map((task) => (
+                        <div key={task.name} className="flex items-center gap-3">
+                          <span className="text-[10px] text-muted-foreground w-16">{task.name}</span>
+                          <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full ${task.color} rounded-full transition-all duration-500`}
+                              style={{ width: `${task.progress}%` }}
+                            />
+                          </div>
+                          <span className="text-[10px] text-muted-foreground w-8">{task.progress}%</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Right sidebar */}
-              <div className="col-span-3 space-y-2">
-                <div className="bg-muted/50 rounded-lg p-2">
-                  <div className="text-[10px] text-muted-foreground">AI Insights</div>
+                {/* Right sidebar - AI Panel */}
+                <div className="col-span-3 space-y-3">
+                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-5 h-5 bg-primary rounded-lg flex items-center justify-center">
+                        <Bot className="w-3 h-3 text-primary-foreground" />
+                      </div>
+                      <span className="text-xs font-medium text-foreground">AI Copilot</span>
+                    </div>
+                    <p className="text-[10px] text-muted-foreground mb-2">3 optimization suggestions available</p>
+                    <div className="text-[9px] bg-primary/10 text-primary px-2 py-1 rounded-md">
+                      "Schedule conflict detected in Week 12"
+                    </div>
+                  </div>
+                  
+                  <div className="bg-card border border-border rounded-xl p-3">
+                    <div className="text-[10px] text-muted-foreground mb-2">Recent Activity</div>
+                    <div className="space-y-2">
+                      {['Invoice approved', 'Material delivered', 'Inspection passed'].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-[10px] text-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Floating notification cards */}
-          {/* AI Adjustment card */}
-          <div className="absolute -top-4 right-8 bg-primary text-primary-foreground rounded-xl px-4 py-3 shadow-lg shadow-primary/20 animate-fade-in">
+          {/* Floating elements */}
+          <div className="absolute -top-6 right-12 bg-primary text-primary-foreground rounded-xl px-4 py-3 shadow-lg shadow-primary/30 animate-float">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-primary-foreground/20 rounded-full flex items-center justify-center">
-                <Bot className="w-3.5 h-3.5" />
-              </div>
+              <Sparkles className="w-4 h-4" />
               <div>
-                <div className="text-xs font-semibold">AI Recommendation</div>
-                <div className="text-[10px] opacity-80">Optimize material delivery</div>
+                <div className="text-xs font-semibold">AI Insight</div>
+                <div className="text-[10px] opacity-80">Save 12% on materials</div>
               </div>
-            </div>
-          </div>
-
-          {/* Alert card */}
-          <div className="absolute -bottom-2 right-4 bg-card rounded-xl px-4 py-3 shadow-xl shadow-foreground/5 border border-destructive/20 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-destructive/10 rounded-full flex items-center justify-center">
-                <AlertTriangle className="w-4 h-4 text-destructive" />
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-destructive">Issue Detected</div>
-                <div className="text-[10px] text-muted-foreground">Foundation inspection required</div>
-                <div className="text-[10px] text-muted-foreground">Building A, Section 3</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Status indicator */}
-          <div className="absolute top-1/3 -left-4 bg-card rounded-lg px-3 py-2 shadow-lg border border-border animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="flex items-center gap-2">
-              <Wifi className="w-3 h-3 text-green-500" />
-              <span className="text-[10px] text-muted-foreground">Live sync</span>
             </div>
           </div>
         </div>
