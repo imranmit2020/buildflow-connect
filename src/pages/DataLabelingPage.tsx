@@ -1,11 +1,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import MLDatasetPanel from "@/components/dashboard/MLDatasetPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Upload,
   Image as ImageIcon,
@@ -39,6 +41,9 @@ import {
   Plus,
   X,
   Crosshair,
+  Database,
+  Cpu,
+  FlaskConical,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -456,14 +461,23 @@ const DataLabelingPage = () => {
                 AI Data Labeling Studio
               </h1>
               <p className="text-muted-foreground mt-1">
-                Train AI models with construction-specific annotations
+                Build high-quality datasets for ML model training
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="outline" className="gap-2">
-                <Download className="w-4 h-4" />
-                Export Dataset
-              </Button>
+              <Tabs defaultValue="labeling" className="w-auto">
+                <TabsList className="bg-secondary/50">
+                  <TabsTrigger value="labeling" className="gap-2 data-[state=active]:bg-background">
+                    <Pencil className="w-3.5 h-3.5" />
+                    Labeling
+                  </TabsTrigger>
+                  <TabsTrigger value="training" className="gap-2 data-[state=active]:bg-background">
+                    <FlaskConical className="w-3.5 h-3.5" />
+                    ML Training
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <div className="w-px h-8 bg-border" />
               <Button variant="accent" className="gap-2" onClick={handleUpload}>
                 <Upload className="w-4 h-4" />
                 Upload Images
@@ -871,281 +885,315 @@ const DataLabelingPage = () => {
               </Card>
             </div>
 
-            {/* Right Panel - Labels & AI */}
-            <div className="col-span-3 space-y-4">
-              {/* AI Auto-Label */}
-              <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
-                <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-accent" />
-                    AI Auto-Label
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4">
-                  <p className="text-xs text-muted-foreground mb-3">
-                    Let AI automatically detect and label objects in your construction images
-                  </p>
-                  <Button
-                    variant="accent"
-                    className="w-full gap-2"
-                    onClick={handleAIAutoLabel}
-                    disabled={!selectedImage || isAIProcessing}
-                  >
-                    <Bot className="w-4 h-4" />
-                    {isAIProcessing ? "Processing..." : "Auto-Label with AI"}
-                  </Button>
-                </CardContent>
-              </Card>
+            {/* Right Panel - Labels & AI / ML Training */}
+            <div className="col-span-3 space-y-4 overflow-y-auto">
+              <Tabs defaultValue="labeling" className="w-full">
+                <TabsList className="w-full bg-secondary/50 mb-4">
+                  <TabsTrigger value="labeling" className="flex-1 gap-1.5 data-[state=active]:bg-background">
+                    <Pencil className="w-3 h-3" />
+                    <span className="text-xs">Labeling</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="training" className="flex-1 gap-1.5 data-[state=active]:bg-background">
+                    <Cpu className="w-3 h-3" />
+                    <span className="text-xs">ML Export</span>
+                  </TabsTrigger>
+                </TabsList>
 
-              {/* Manual Labeling - Custom Labels */}
-              <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20">
-                <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Hand className="w-4 h-4 text-emerald-400" />
-                    Manual Labeling
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4">
-                  <p className="text-xs text-muted-foreground mb-3">
-                    Create custom labels not available in standard datasets for specialized construction elements
-                  </p>
-                  {!isCreatingLabel ? (
-                    <Button
-                      variant="outline"
-                      className="w-full gap-2 border-emerald-500/30 hover:bg-emerald-500/10"
-                      onClick={() => setIsCreatingLabel(true)}
-                    >
-                      <Plus className="w-4 h-4" />
-                      Create Custom Label
-                    </Button>
-                  ) : (
-                    <div className="space-y-3">
-                      <Input
-                        placeholder="Label name (e.g., Scaffolding Joint)"
-                        value={newLabelName}
-                        onChange={(e) => setNewLabelName(e.target.value)}
-                        className="h-9"
-                      />
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-2">Select color:</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {customColors.map((color) => (
-                            <button
-                              key={color}
-                              onClick={() => setNewLabelColor(color)}
-                              className={cn(
-                                "w-6 h-6 rounded-full border-2 transition-transform hover:scale-110",
-                                newLabelColor === color ? "border-foreground scale-110" : "border-transparent"
-                              )}
-                              style={{ backgroundColor: color }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            setIsCreatingLabel(false);
-                            setNewLabelName("");
-                          }}
-                          className="flex-1"
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={handleCreateLabel}
-                          className="flex-1 bg-emerald-500 hover:bg-emerald-600"
-                        >
-                          <Save className="w-3 h-3 mr-1" />
-                          Save
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                <TabsContent value="labeling" className="mt-0 space-y-4">
+                  {/* AI Auto-Label */}
+                  <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
+                    <CardHeader className="py-3 px-4">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-accent" />
+                        AI Auto-Label
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-4 pb-4">
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Let AI automatically detect and label objects in your construction images
+                      </p>
+                      <Button
+                        variant="accent"
+                        className="w-full gap-2"
+                        onClick={handleAIAutoLabel}
+                        disabled={!selectedImage || isAIProcessing}
+                      >
+                        <Bot className="w-4 h-4" />
+                        {isAIProcessing ? "Processing..." : "Auto-Label with AI"}
+                      </Button>
+                    </CardContent>
+                  </Card>
 
-              {/* Labels */}
-              <Card className="flex-1">
-                <CardHeader className="py-3 px-4 border-b border-border">
-                  <CardTitle className="text-sm flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Tag className="w-4 h-4" />
-                      Labels ({labels.length})
-                    </span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-2 max-h-64 overflow-y-auto">
-                  <div className="space-y-1">
-                    {labels.map((label) => {
-                      const Icon = label.icon;
-                      return (
-                        <div
-                          key={label.id}
-                          onClick={() => setSelectedLabel(label.id)}
-                          className={cn(
-                            "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors group",
-                            selectedLabel === label.id
-                              ? "bg-accent/10 border border-accent/30"
-                              : "hover:bg-secondary"
-                          )}
+                  {/* Manual Labeling - Custom Labels */}
+                  <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20">
+                    <CardHeader className="py-3 px-4">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <Hand className="w-4 h-4 text-emerald-400" />
+                        Manual Labeling
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-4 pb-4">
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Create custom labels not available in standard datasets for specialized construction elements
+                      </p>
+                      {!isCreatingLabel ? (
+                        <Button
+                          variant="outline"
+                          className="w-full gap-2 border-emerald-500/30 hover:bg-emerald-500/10"
+                          onClick={() => setIsCreatingLabel(true)}
                         >
-                          <div
-                            className="w-8 h-8 rounded-lg flex items-center justify-center"
-                            style={{ backgroundColor: `${label.color}20` }}
-                          >
-                            <Icon className="w-4 h-4" style={{ color: label.color }} />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <p className="text-sm font-medium truncate">{label.name}</p>
-                              {label.isCustom && (
-                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-emerald-500/30 text-emerald-400">
-                                  Custom
-                                </Badge>
-                              )}
-                            </div>
-                            <p className="text-xs text-muted-foreground">
-                              {selectedImage?.annotations.filter((a) => a.labelId === label.id)
-                                .length || 0}{" "}
-                              annotations
-                            </p>
-                          </div>
-                          {label.isCustom && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeleteLabel(label.id);
-                              }}
-                            >
-                              <X className="w-3 h-3 text-destructive" />
-                            </Button>
-                          )}
-                          <div
-                            className="w-3 h-3 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: label.color }}
+                          <Plus className="w-4 h-4" />
+                          Create Custom Label
+                        </Button>
+                      ) : (
+                        <div className="space-y-3">
+                          <Input
+                            placeholder="Label name (e.g., Scaffolding Joint)"
+                            value={newLabelName}
+                            onChange={(e) => setNewLabelName(e.target.value)}
+                            className="h-9"
                           />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Annotations List */}
-              {selectedImage && selectedImage.annotations.length > 0 && (
-                <Card>
-                  <CardHeader className="py-3 px-4 border-b border-border">
-                    <CardTitle className="text-sm flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Layers className="w-4 h-4" />
-                        Annotations ({selectedImage.annotations.length})
-                      </span>
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                        <Hand className="w-3 h-3" />
-                        {selectedImage.annotations.filter(a => a.isManual).length} manual
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-2 max-h-48 overflow-y-auto">
-                    <div className="space-y-1">
-                      {selectedImage.annotations.map((annotation) => {
-                        const label = getLabelById(annotation.labelId);
-                        if (!label) return null;
-                        const Icon = label.icon;
-                        return (
-                          <div
-                            key={annotation.id}
-                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary group"
-                          >
-                            <div
-                              className="w-6 h-6 rounded flex items-center justify-center"
-                              style={{ backgroundColor: `${label.color}20` }}
-                            >
-                              <Icon className="w-3 h-3" style={{ color: label.color }} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <p className="text-xs font-medium truncate">{label.name}</p>
-                                <Badge 
-                                  variant="outline" 
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-2">Select color:</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {customColors.map((color) => (
+                                <button
+                                  key={color}
+                                  onClick={() => setNewLabelColor(color)}
                                   className={cn(
-                                    "text-[8px] px-1 py-0 h-3.5",
-                                    annotation.isManual 
-                                      ? "border-emerald-500/30 text-emerald-400" 
-                                      : "border-accent/30 text-accent"
+                                    "w-6 h-6 rounded-full border-2 transition-transform hover:scale-110",
+                                    newLabelColor === color ? "border-foreground scale-110" : "border-transparent"
                                   )}
-                                >
-                                  {annotation.type}
-                                </Badge>
-                              </div>
-                              {annotation.aiConfidence ? (
-                                <div className="flex items-center gap-1">
-                                  <Sparkles className="w-2.5 h-2.5 text-accent" />
-                                  <span className="text-[10px] text-muted-foreground">
-                                    {Math.round(annotation.aiConfidence * 100)}% confidence
-                                  </span>
-                                </div>
-                              ) : annotation.isManual && (
-                                <div className="flex items-center gap-1">
-                                  <Hand className="w-2.5 h-2.5 text-emerald-400" />
-                                  <span className="text-[10px] text-muted-foreground">
-                                    Manual annotation
-                                  </span>
-                                </div>
-                              )}
+                                  style={{ backgroundColor: color }}
+                                />
+                              ))}
                             </div>
+                          </div>
+                          <div className="flex gap-2">
                             <Button
                               variant="ghost"
-                              size="icon"
-                              className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                              onClick={() => handleDeleteAnnotation(annotation.id)}
+                              size="sm"
+                              onClick={() => {
+                                setIsCreatingLabel(false);
+                                setNewLabelName("");
+                              }}
+                              className="flex-1"
                             >
-                              <Trash2 className="w-3 h-3 text-destructive" />
+                              Cancel
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={handleCreateLabel}
+                              className="flex-1 bg-emerald-500 hover:bg-emerald-600"
+                            >
+                              <Save className="w-3 h-3 mr-1" />
+                              Save
                             </Button>
                           </div>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
 
-              {/* Quick Stats */}
-              <Card>
-                <CardContent className="p-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-foreground">{images.length}</p>
-                      <p className="text-xs text-muted-foreground">Total Images</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-accent">
-                        {images.reduce((acc, img) => acc + img.annotations.length, 0)}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Annotations</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-emerald-400">
-                        {images.filter((img) => img.status === "completed").length}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Completed</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-amber-400">
-                        {images.filter((img) => img.aiLabeled).length}
-                      </p>
-                      <p className="text-xs text-muted-foreground">AI Labeled</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  {/* Labels */}
+                  <Card className="flex-1">
+                    <CardHeader className="py-3 px-4 border-b border-border">
+                      <CardTitle className="text-sm flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <Tag className="w-4 h-4" />
+                          Labels ({labels.length})
+                        </span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-2 max-h-64 overflow-y-auto">
+                      <div className="space-y-1">
+                        {labels.map((label) => {
+                          const Icon = label.icon;
+                          return (
+                            <div
+                              key={label.id}
+                              onClick={() => setSelectedLabel(label.id)}
+                              className={cn(
+                                "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors group",
+                                selectedLabel === label.id
+                                  ? "bg-accent/10 border border-accent/30"
+                                  : "hover:bg-secondary"
+                              )}
+                            >
+                              <div
+                                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                                style={{ backgroundColor: `${label.color}20` }}
+                              >
+                                <Icon className="w-4 h-4" style={{ color: label.color }} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <p className="text-sm font-medium truncate">{label.name}</p>
+                                  {label.isCustom && (
+                                    <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-emerald-500/30 text-emerald-400">
+                                      Custom
+                                    </Badge>
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted-foreground">
+                                  {selectedImage?.annotations.filter((a) => a.labelId === label.id)
+                                    .length || 0}{" "}
+                                  annotations
+                                </p>
+                              </div>
+                              {label.isCustom && (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteLabel(label.id);
+                                  }}
+                                >
+                                  <X className="w-3 h-3 text-destructive" />
+                                </Button>
+                              )}
+                              <div
+                                className="w-3 h-3 rounded-full flex-shrink-0"
+                                style={{ backgroundColor: label.color }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Annotations List */}
+                  {selectedImage && selectedImage.annotations.length > 0 && (
+                    <Card>
+                      <CardHeader className="py-3 px-4 border-b border-border">
+                        <CardTitle className="text-sm flex items-center justify-between">
+                          <span className="flex items-center gap-2">
+                            <Layers className="w-4 h-4" />
+                            Annotations ({selectedImage.annotations.length})
+                          </span>
+                          <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                            <Hand className="w-3 h-3" />
+                            {selectedImage.annotations.filter(a => a.isManual).length} manual
+                          </div>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-2 max-h-48 overflow-y-auto">
+                        <div className="space-y-1">
+                          {selectedImage.annotations.map((annotation) => {
+                            const label = getLabelById(annotation.labelId);
+                            if (!label) return null;
+                            const Icon = label.icon;
+                            return (
+                              <div
+                                key={annotation.id}
+                                className="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary group"
+                              >
+                                <div
+                                  className="w-6 h-6 rounded flex items-center justify-center"
+                                  style={{ backgroundColor: `${label.color}20` }}
+                                >
+                                  <Icon className="w-3 h-3" style={{ color: label.color }} />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-1.5">
+                                    <p className="text-xs font-medium truncate">{label.name}</p>
+                                    <Badge 
+                                      variant="outline" 
+                                      className={cn(
+                                        "text-[8px] px-1 py-0 h-3.5",
+                                        annotation.isManual 
+                                          ? "border-emerald-500/30 text-emerald-400" 
+                                          : "border-accent/30 text-accent"
+                                      )}
+                                    >
+                                      {annotation.type}
+                                    </Badge>
+                                  </div>
+                                  {annotation.aiConfidence ? (
+                                    <div className="flex items-center gap-1">
+                                      <Sparkles className="w-2.5 h-2.5 text-accent" />
+                                      <span className="text-[10px] text-muted-foreground">
+                                        {Math.round(annotation.aiConfidence * 100)}% confidence
+                                      </span>
+                                    </div>
+                                  ) : annotation.isManual && (
+                                    <div className="flex items-center gap-1">
+                                      <Hand className="w-2.5 h-2.5 text-emerald-400" />
+                                      <span className="text-[10px] text-muted-foreground">
+                                        Manual annotation
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                                  onClick={() => handleDeleteAnnotation(annotation.id)}
+                                >
+                                  <Trash2 className="w-3 h-3 text-destructive" />
+                                </Button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Quick Stats */}
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-foreground">{images.length}</p>
+                          <p className="text-xs text-muted-foreground">Total Images</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-accent">
+                            {images.reduce((acc, img) => acc + img.annotations.length, 0)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">Annotations</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-emerald-400">
+                            {images.filter((img) => img.status === "completed").length}
+                          </p>
+                          <p className="text-xs text-muted-foreground">Completed</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-amber-400">
+                            {images.filter((img) => img.aiLabeled).length}
+                          </p>
+                          <p className="text-xs text-muted-foreground">AI Labeled</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="training" className="mt-0">
+                  <MLDatasetPanel
+                    totalImages={images.length}
+                    totalAnnotations={images.reduce((acc, img) => acc + img.annotations.length, 0)}
+                    completedImages={images.filter((img) => img.status === "completed").length}
+                    labels={labels.map(l => ({
+                      id: l.id,
+                      name: l.name,
+                      color: l.color,
+                      count: images.reduce((acc, img) => 
+                        acc + img.annotations.filter(a => a.labelId === l.id).length, 0
+                      ),
+                    }))}
+                    onExport={(format, options) => {
+                      console.log("Exporting dataset:", format, options);
+                    }}
+                  />
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </main>
