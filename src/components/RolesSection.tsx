@@ -8,8 +8,8 @@ import {
   PlusCircle,
   LayoutGrid
 } from "lucide-react";
-
 import { HardHat } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const roles = [
   {
@@ -17,54 +17,63 @@ const roles = [
     subtitle: "Frequent schedulers",
     icon: TrendingUp,
     color: "bg-teal-500",
+    path: "/dashboard",
   },
   {
     title: "Contractor",
     subtitle: "Uncoordinated teams",
     icon: Zap,
     color: "bg-teal-500",
+    path: "/contractor-dashboard",
   },
   {
     title: "Architect",
     subtitle: "Costly design errors",
     icon: Layers,
     color: "bg-teal-500",
+    path: "/architect-dashboard",
   },
   {
     title: "Interior Designer",
     subtitle: "Client Recession",
     icon: User,
     color: "bg-orange-400",
+    path: "/interior-designer-dashboard",
   },
   {
     title: "Labor",
     subtitle: "AI-Matched Hiring",
     icon: HardHat,
     color: "bg-blue-500",
+    path: "/labor-dashboard",
   },
   {
     title: "Vendor",
     subtitle: "Manual BOQ-tracking",
     icon: CheckCircle2,
     color: "bg-teal-500",
+    path: "/vendor-dashboard",
   },
   {
     title: "Subcontractor",
     subtitle: "Outdated documents",
     icon: FileText,
     color: "bg-teal-500",
+    path: "/contractor-dashboard",
   },
   {
     title: "Finance",
     subtitle: "Invoice-chaining",
     icon: PlusCircle,
     color: "bg-teal-500",
+    path: "/finance-dashboard",
   },
   {
-    title: "AI Copilot",
-    subtitle: "(OI./Bin)",
+    title: "Data Labeling",
+    subtitle: "ML Training Data",
     icon: LayoutGrid,
-    color: "bg-teal-500",
+    color: "bg-purple-500",
+    path: "/data-labeling",
   },
 ];
 
@@ -84,16 +93,17 @@ const RolesSection = () => {
           {roles.map((role) => {
             const Icon = role.icon;
             return (
-              <div
+              <Link
+                to={role.path}
                 key={role.title}
-                className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow cursor-pointer"
               >
                 <p className="font-semibold text-slate-900 mb-1">{role.title}</p>
                 <p className="text-sm text-slate-500 mb-4">{role.subtitle}</p>
                 <div className={`w-14 h-14 ${role.color} rounded-2xl flex items-center justify-center mx-auto`}>
                   <Icon className="w-7 h-7 text-white" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
