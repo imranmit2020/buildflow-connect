@@ -37,6 +37,7 @@ import {
   User,
   HardHat,
   Award,
+  ScanSearch,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -110,6 +111,7 @@ const allNavItems: NavItem[] = [
   // AI
   { icon: Bot, label: "AI Copilot", path: "/ai-copilot", roles: ["client", "contractor", "architect", "designer", "vendor", "finance"] },
   { icon: GitBranch, label: "Workflow", path: "/workflow", roles: ["client", "contractor", "architect", "designer", "vendor", "finance"] },
+  { icon: ScanSearch, label: "Data Labeling", path: "/data-labeling", roles: ["contractor", "architect"] },
 ];
 
 const roles = [
