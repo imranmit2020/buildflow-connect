@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,8 +30,18 @@ import {
   Wrench,
   Building2,
   Truck,
+  Hand,
+  MousePointer2,
+  PenTool,
+  Undo2,
+  Redo2,
+  Save,
+  Plus,
+  X,
+  Crosshair,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface Label {
   id: string;
@@ -39,14 +49,16 @@ interface Label {
   color: string;
   icon: React.ElementType;
   count: number;
+  isCustom?: boolean;
 }
 
 interface Annotation {
   id: string;
-  type: "box" | "polygon" | "point";
+  type: "box" | "polygon" | "point" | "freehand";
   labelId: string;
   coordinates: { x: number; y: number }[];
   aiConfidence?: number;
+  isManual?: boolean;
 }
 
 interface UploadedImage {
@@ -100,11 +112,11 @@ const mockImages: UploadedImage[] = [
 ];
 
 const tools = [
-  { id: "select", icon: Square, label: "Select" },
+  { id: "select", icon: MousePointer2, label: "Select" },
   { id: "box", icon: Square, label: "Bounding Box" },
-  { id: "polygon", icon: Layers, label: "Polygon" },
-  { id: "point", icon: Circle, label: "Point" },
-  { id: "brush", icon: Pencil, label: "Smart Brush" },
+  { id: "polygon", icon: PenTool, label: "Polygon" },
+  { id: "point", icon: Crosshair, label: "Point" },
+  { id: "freehand", icon: Pencil, label: "Freehand Draw" },
 ];
 
 const DataLabelingPage = () => {
@@ -118,6 +130,26 @@ const DataLabelingPage = () => {
   const [isAIProcessing, setIsAIProcessing] = useState(false);
   const [aiProgress, setAiProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Manual drawing state
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [currentPoints, setCurrentPoints] = useState<{ x: number; y: number }[]>([]);
+  const [drawingHistory, setDrawingHistory] = useState<Annotation[][]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  
+  // Custom label creation
+  const [isCreatingLabel, setIsCreatingLabel] = useState(false);
+  const [newLabelName, setNewLabelName] = useState("");
+  const [newLabelColor, setNewLabelColor] = useState("#6366f1");
+
+  const customColors = [
+    "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
+    "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9",
+    "#3b82f6", "#6366f1", "#8b5cf6", "#a855f7", "#d946ef",
+    "#ec4899", "#f43f5e",
+  ];
 
   const handleUpload = () => {
     fileInputRef.current?.click();
@@ -138,6 +170,224 @@ const DataLabelingPage = () => {
     }
   };
 
+  // Get mouse position relative to image
+  const getMousePosition = useCallback((e: React.MouseEvent) => {
+    if (!imageRef.current) return { x: 0, y: 0 };
+    const rect = imageRef.current.getBoundingClientRect();
+    const scale = zoom / 100;
+    return {
+      x: Math.round((e.clientX - rect.left) / scale),
+      y: Math.round((e.clientY - rect.top) / scale),
+    };
+  }, [zoom]);
+
+  // Handle mouse down for drawing
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (selectedTool === "select" || !selectedImage) return;
+    const pos = getMousePosition(e);
+    
+    if (selectedTool === "point") {
+      // Add single point annotation immediately
+      const newAnnotation: Annotation = {
+        id: `manual-${Date.now()}`,
+        type: "point",
+        labelId: selectedLabel,
+        coordinates: [pos],
+        isManual: true,
+      };
+      addAnnotation(newAnnotation);
+      toast.success("Point annotation added");
+    } else {
+      setIsDrawing(true);
+      setCurrentPoints([pos]);
+    }
+  }, [selectedTool, selectedImage, selectedLabel, getMousePosition]);
+
+  // Handle mouse move for drawing
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDrawing) return;
+    const pos = getMousePosition(e);
+    
+    if (selectedTool === "freehand") {
+      setCurrentPoints(prev => [...prev, pos]);
+    } else if (selectedTool === "box" && currentPoints.length > 0) {
+      setCurrentPoints([currentPoints[0], pos]);
+    }
+  }, [isDrawing, selectedTool, currentPoints, getMousePosition]);
+
+  // Handle mouse up to finish drawing
+  const handleMouseUp = useCallback(() => {
+    if (!isDrawing || currentPoints.length < 1) {
+      setIsDrawing(false);
+      return;
+    }
+
+    let newAnnotation: Annotation | null = null;
+
+    if (selectedTool === "box" && currentPoints.length >= 2) {
+      const [start, end] = currentPoints;
+      // Normalize coordinates (ensure start is top-left)
+      const normalized = [
+        { x: Math.min(start.x, end.x), y: Math.min(start.y, end.y) },
+        { x: Math.max(start.x, end.x), y: Math.max(start.y, end.y) },
+      ];
+      if (Math.abs(normalized[1].x - normalized[0].x) > 10 && Math.abs(normalized[1].y - normalized[0].y) > 10) {
+        newAnnotation = {
+          id: `manual-${Date.now()}`,
+          type: "box",
+          labelId: selectedLabel,
+          coordinates: normalized,
+          isManual: true,
+        };
+      }
+    } else if (selectedTool === "freehand" && currentPoints.length > 5) {
+      // Simplify freehand path by sampling every Nth point
+      const simplified = currentPoints.filter((_, i) => i % 3 === 0 || i === currentPoints.length - 1);
+      newAnnotation = {
+        id: `manual-${Date.now()}`,
+        type: "freehand",
+        labelId: selectedLabel,
+        coordinates: simplified,
+        isManual: true,
+      };
+    } else if (selectedTool === "polygon" && currentPoints.length >= 3) {
+      newAnnotation = {
+        id: `manual-${Date.now()}`,
+        type: "polygon",
+        labelId: selectedLabel,
+        coordinates: currentPoints,
+        isManual: true,
+      };
+    }
+
+    if (newAnnotation) {
+      addAnnotation(newAnnotation);
+      toast.success(`Manual ${selectedTool} annotation added`);
+    }
+
+    setIsDrawing(false);
+    setCurrentPoints([]);
+  }, [isDrawing, currentPoints, selectedTool, selectedLabel]);
+
+  // Add polygon point on click
+  const handleCanvasClick = useCallback((e: React.MouseEvent) => {
+    if (selectedTool !== "polygon" || !selectedImage) return;
+    const pos = getMousePosition(e);
+    setCurrentPoints(prev => [...prev, pos]);
+  }, [selectedTool, selectedImage, getMousePosition]);
+
+  // Finish polygon on double click
+  const handleDoubleClick = useCallback(() => {
+    if (selectedTool !== "polygon" || currentPoints.length < 3) return;
+    
+    const newAnnotation: Annotation = {
+      id: `manual-${Date.now()}`,
+      type: "polygon",
+      labelId: selectedLabel,
+      coordinates: currentPoints,
+      isManual: true,
+    };
+    addAnnotation(newAnnotation);
+    toast.success("Polygon annotation completed");
+    setCurrentPoints([]);
+  }, [selectedTool, currentPoints, selectedLabel]);
+
+  // Add annotation with history tracking
+  const addAnnotation = useCallback((annotation: Annotation) => {
+    if (!selectedImage) return;
+    
+    const newAnnotations = [...selectedImage.annotations, annotation];
+    const updatedImage = { ...selectedImage, annotations: newAnnotations, status: "in-progress" as const };
+    
+    setImages(prev => prev.map(img => img.id === selectedImage.id ? updatedImage : img));
+    setSelectedImage(updatedImage);
+    
+    // Update history for undo/redo
+    const newHistory = drawingHistory.slice(0, historyIndex + 1);
+    newHistory.push(newAnnotations);
+    setDrawingHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [selectedImage, drawingHistory, historyIndex]);
+
+  // Undo last annotation
+  const handleUndo = useCallback(() => {
+    if (historyIndex <= 0 || !selectedImage) return;
+    const newIndex = historyIndex - 1;
+    const prevAnnotations = drawingHistory[newIndex] || [];
+    
+    setHistoryIndex(newIndex);
+    const updatedImage = { ...selectedImage, annotations: prevAnnotations };
+    setImages(prev => prev.map(img => img.id === selectedImage.id ? updatedImage : img));
+    setSelectedImage(updatedImage);
+    toast.info("Undo successful");
+  }, [historyIndex, drawingHistory, selectedImage]);
+
+  // Redo annotation
+  const handleRedo = useCallback(() => {
+    if (historyIndex >= drawingHistory.length - 1 || !selectedImage) return;
+    const newIndex = historyIndex + 1;
+    const nextAnnotations = drawingHistory[newIndex];
+    
+    setHistoryIndex(newIndex);
+    const updatedImage = { ...selectedImage, annotations: nextAnnotations };
+    setImages(prev => prev.map(img => img.id === selectedImage.id ? updatedImage : img));
+    setSelectedImage(updatedImage);
+    toast.info("Redo successful");
+  }, [historyIndex, drawingHistory, selectedImage]);
+
+  // Create custom label
+  const handleCreateLabel = useCallback(() => {
+    if (!newLabelName.trim()) {
+      toast.error("Please enter a label name");
+      return;
+    }
+    
+    const newLabel: Label = {
+      id: `custom-${Date.now()}`,
+      name: newLabelName.trim(),
+      color: newLabelColor,
+      icon: Tag,
+      count: 0,
+      isCustom: true,
+    };
+    
+    setLabels(prev => [...prev, newLabel]);
+    setSelectedLabel(newLabel.id);
+    setNewLabelName("");
+    setIsCreatingLabel(false);
+    toast.success(`Custom label "${newLabel.name}" created`);
+  }, [newLabelName, newLabelColor]);
+
+  // Delete custom label
+  const handleDeleteLabel = useCallback((labelId: string) => {
+    const label = labels.find(l => l.id === labelId);
+    if (!label?.isCustom) return;
+    
+    setLabels(prev => prev.filter(l => l.id !== labelId));
+    if (selectedLabel === labelId) {
+      setSelectedLabel(labels[0]?.id || "");
+    }
+    toast.success("Custom label deleted");
+  }, [labels, selectedLabel]);
+
+  // Delete annotation
+  const handleDeleteAnnotation = useCallback((annotationId: string) => {
+    if (!selectedImage) return;
+    
+    const newAnnotations = selectedImage.annotations.filter(a => a.id !== annotationId);
+    const updatedImage = { ...selectedImage, annotations: newAnnotations };
+    
+    setImages(prev => prev.map(img => img.id === selectedImage.id ? updatedImage : img));
+    setSelectedImage(updatedImage);
+    
+    const newHistory = drawingHistory.slice(0, historyIndex + 1);
+    newHistory.push(newAnnotations);
+    setDrawingHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+    
+    toast.success("Annotation deleted");
+  }, [selectedImage, drawingHistory, historyIndex]);
+
   const handleAIAutoLabel = () => {
     if (!selectedImage) return;
     setIsAIProcessing(true);
@@ -148,7 +398,6 @@ const DataLabelingPage = () => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsAIProcessing(false);
-          // Mock AI labeling result
           const updatedImages = images.map((img) =>
             img.id === selectedImage.id
               ? {
@@ -170,6 +419,7 @@ const DataLabelingPage = () => {
           );
           setImages(updatedImages);
           setSelectedImage(updatedImages.find((img) => img.id === selectedImage.id) || null);
+          toast.success("AI auto-labeling complete!");
           return 100;
         }
         return prev + 10;
@@ -307,6 +557,25 @@ const DataLabelingPage = () => {
                         </Button>
                       );
                     })}
+                    <div className="w-px h-6 bg-border mx-2" />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleUndo}
+                      disabled={historyIndex <= 0}
+                      className="gap-1"
+                    >
+                      <Undo2 className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleRedo}
+                      disabled={historyIndex >= drawingHistory.length - 1}
+                      className="gap-1"
+                    >
+                      <Redo2 className="w-4 h-4" />
+                    </Button>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button
@@ -346,53 +615,217 @@ const DataLabelingPage = () => {
                 </div>
               </Card>
 
+              {/* Drawing Mode Indicator */}
+              {selectedTool !== "select" && (
+                <div className="flex items-center gap-2 px-3 py-2 bg-accent/10 border border-accent/20 rounded-lg">
+                  <Hand className="w-4 h-4 text-accent" />
+                  <span className="text-sm text-accent font-medium">
+                    {selectedTool === "polygon" 
+                      ? "Click to add points, double-click to finish polygon"
+                      : selectedTool === "point"
+                      ? "Click to place point annotations"
+                      : selectedTool === "freehand"
+                      ? "Click and drag to draw freehand annotations"
+                      : "Click and drag to draw bounding box"}
+                  </span>
+                  {currentPoints.length > 0 && selectedTool === "polygon" && (
+                    <Badge variant="outline" className="ml-auto">
+                      {currentPoints.length} points
+                    </Badge>
+                  )}
+                </div>
+              )}
+
               {/* Canvas Area */}
               <Card className="flex-1 overflow-hidden relative">
                 {selectedImage ? (
-                  <div className="relative w-full h-full flex items-center justify-center bg-black/20 overflow-auto">
+                  <div 
+                    ref={canvasRef}
+                    className={cn(
+                      "relative w-full h-full flex items-center justify-center bg-black/20 overflow-auto",
+                      selectedTool !== "select" && "cursor-crosshair"
+                    )}
+                    onMouseDown={selectedTool === "polygon" ? undefined : handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                    onClick={selectedTool === "polygon" ? handleCanvasClick : undefined}
+                    onDoubleClick={handleDoubleClick}
+                  >
                     <div
                       className="relative"
-                      style={{ transform: `scale(${zoom / 100})` }}
+                      style={{ transform: `scale(${zoom / 100})`, transformOrigin: "center" }}
                     >
                       <img
+                        ref={imageRef}
                         src={selectedImage.url}
                         alt={selectedImage.name}
-                        className="max-w-none"
+                        className="max-w-none select-none"
                         draggable={false}
                       />
-                      {/* Render annotations */}
+                      
+                      {/* Render existing annotations */}
                       {showAnnotations &&
                         selectedImage.annotations.map((annotation) => {
                           const label = getLabelById(annotation.labelId);
-                          if (!label || annotation.coordinates.length < 2) return null;
-                          const [start, end] = annotation.coordinates;
-                          return (
-                            <div
-                              key={annotation.id}
-                              className="absolute border-2 rounded"
-                              style={{
-                                left: start.x,
-                                top: start.y,
-                                width: end.x - start.x,
-                                height: end.y - start.y,
-                                borderColor: label.color,
-                                backgroundColor: `${label.color}20`,
-                              }}
-                            >
+                          if (!label) return null;
+                          
+                          // Render based on annotation type
+                          if (annotation.type === "point" && annotation.coordinates.length >= 1) {
+                            const point = annotation.coordinates[0];
+                            return (
                               <div
-                                className="absolute -top-5 left-0 px-1.5 py-0.5 rounded text-[10px] text-white flex items-center gap-1"
-                                style={{ backgroundColor: label.color }}
+                                key={annotation.id}
+                                className="absolute w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow-lg"
+                                style={{
+                                  left: point.x,
+                                  top: point.y,
+                                  borderColor: label.color,
+                                  backgroundColor: `${label.color}60`,
+                                }}
                               >
-                                {label.name}
-                                {annotation.aiConfidence && (
-                                  <span className="opacity-75">
-                                    {Math.round(annotation.aiConfidence * 100)}%
-                                  </span>
-                                )}
+                                <div
+                                  className="absolute -top-5 left-1/2 -translate-x-1/2 px-1.5 py-0.5 rounded text-[10px] text-white whitespace-nowrap flex items-center gap-1"
+                                  style={{ backgroundColor: label.color }}
+                                >
+                                  {annotation.isManual && <Hand className="w-2.5 h-2.5" />}
+                                  {label.name}
+                                </div>
                               </div>
-                            </div>
-                          );
+                            );
+                          }
+                          
+                          if (annotation.type === "freehand" && annotation.coordinates.length > 1) {
+                            const pathData = annotation.coordinates
+                              .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`)
+                              .join(' ');
+                            return (
+                              <svg
+                                key={annotation.id}
+                                className="absolute inset-0 w-full h-full pointer-events-none"
+                                style={{ overflow: 'visible' }}
+                              >
+                                <path
+                                  d={pathData}
+                                  fill="none"
+                                  stroke={label.color}
+                                  strokeWidth="3"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  opacity="0.8"
+                                />
+                              </svg>
+                            );
+                          }
+                          
+                          if (annotation.type === "polygon" && annotation.coordinates.length >= 3) {
+                            const pathData = annotation.coordinates
+                              .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`)
+                              .join(' ') + ' Z';
+                            return (
+                              <svg
+                                key={annotation.id}
+                                className="absolute inset-0 w-full h-full pointer-events-none"
+                                style={{ overflow: 'visible' }}
+                              >
+                                <path
+                                  d={pathData}
+                                  fill={`${label.color}20`}
+                                  stroke={label.color}
+                                  strokeWidth="2"
+                                />
+                              </svg>
+                            );
+                          }
+                          
+                          // Box annotation
+                          if (annotation.coordinates.length >= 2) {
+                            const [start, end] = annotation.coordinates;
+                            return (
+                              <div
+                                key={annotation.id}
+                                className="absolute border-2 rounded"
+                                style={{
+                                  left: start.x,
+                                  top: start.y,
+                                  width: end.x - start.x,
+                                  height: end.y - start.y,
+                                  borderColor: label.color,
+                                  backgroundColor: `${label.color}20`,
+                                }}
+                              >
+                                <div
+                                  className="absolute -top-5 left-0 px-1.5 py-0.5 rounded text-[10px] text-white flex items-center gap-1"
+                                  style={{ backgroundColor: label.color }}
+                                >
+                                  {annotation.isManual && <Hand className="w-2.5 h-2.5" />}
+                                  {label.name}
+                                  {annotation.aiConfidence && (
+                                    <span className="opacity-75">
+                                      {Math.round(annotation.aiConfidence * 100)}%
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          }
+                          
+                          return null;
                         })}
+                      
+                      {/* Render current drawing in progress */}
+                      {isDrawing && currentPoints.length > 0 && (
+                        <>
+                          {selectedTool === "box" && currentPoints.length >= 2 && (
+                            <div
+                              className="absolute border-2 border-dashed rounded pointer-events-none"
+                              style={{
+                                left: Math.min(currentPoints[0].x, currentPoints[1].x),
+                                top: Math.min(currentPoints[0].y, currentPoints[1].y),
+                                width: Math.abs(currentPoints[1].x - currentPoints[0].x),
+                                height: Math.abs(currentPoints[1].y - currentPoints[0].y),
+                                borderColor: getLabelById(selectedLabel)?.color || "#fff",
+                                backgroundColor: `${getLabelById(selectedLabel)?.color || "#fff"}10`,
+                              }}
+                            />
+                          )}
+                          {selectedTool === "freehand" && currentPoints.length > 1 && (
+                            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+                              <path
+                                d={currentPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')}
+                                fill="none"
+                                stroke={getLabelById(selectedLabel)?.color || "#fff"}
+                                strokeWidth="3"
+                                strokeLinecap="round"
+                                strokeDasharray="5,5"
+                                opacity="0.8"
+                              />
+                            </svg>
+                          )}
+                        </>
+                      )}
+                      
+                      {/* Polygon drawing preview */}
+                      {selectedTool === "polygon" && currentPoints.length > 0 && (
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+                          <path
+                            d={currentPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')}
+                            fill={`${getLabelById(selectedLabel)?.color || "#fff"}10`}
+                            stroke={getLabelById(selectedLabel)?.color || "#fff"}
+                            strokeWidth="2"
+                            strokeDasharray="5,5"
+                          />
+                          {currentPoints.map((point, i) => (
+                            <circle
+                              key={i}
+                              cx={point.x}
+                              cy={point.y}
+                              r="4"
+                              fill={getLabelById(selectedLabel)?.color || "#fff"}
+                            />
+                          ))}
+                        </svg>
+                      )}
                     </div>
 
                     {/* AI Processing Overlay */}
@@ -464,20 +897,88 @@ const DataLabelingPage = () => {
                 </CardContent>
               </Card>
 
+              {/* Manual Labeling - Custom Labels */}
+              <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20">
+                <CardHeader className="py-3 px-4">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Hand className="w-4 h-4 text-emerald-400" />
+                    Manual Labeling
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-4 pb-4">
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Create custom labels not available in standard datasets for specialized construction elements
+                  </p>
+                  {!isCreatingLabel ? (
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 border-emerald-500/30 hover:bg-emerald-500/10"
+                      onClick={() => setIsCreatingLabel(true)}
+                    >
+                      <Plus className="w-4 h-4" />
+                      Create Custom Label
+                    </Button>
+                  ) : (
+                    <div className="space-y-3">
+                      <Input
+                        placeholder="Label name (e.g., Scaffolding Joint)"
+                        value={newLabelName}
+                        onChange={(e) => setNewLabelName(e.target.value)}
+                        className="h-9"
+                      />
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-2">Select color:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {customColors.map((color) => (
+                            <button
+                              key={color}
+                              onClick={() => setNewLabelColor(color)}
+                              className={cn(
+                                "w-6 h-6 rounded-full border-2 transition-transform hover:scale-110",
+                                newLabelColor === color ? "border-foreground scale-110" : "border-transparent"
+                              )}
+                              style={{ backgroundColor: color }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setIsCreatingLabel(false);
+                            setNewLabelName("");
+                          }}
+                          className="flex-1"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={handleCreateLabel}
+                          className="flex-1 bg-emerald-500 hover:bg-emerald-600"
+                        >
+                          <Save className="w-3 h-3 mr-1" />
+                          Save
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
               {/* Labels */}
               <Card className="flex-1">
                 <CardHeader className="py-3 px-4 border-b border-border">
                   <CardTitle className="text-sm flex items-center justify-between">
                     <span className="flex items-center gap-2">
                       <Tag className="w-4 h-4" />
-                      Labels
+                      Labels ({labels.length})
                     </span>
-                    <Button variant="ghost" size="sm" className="h-7 text-xs">
-                      + Add
-                    </Button>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-2">
+                <CardContent className="p-2 max-h-64 overflow-y-auto">
                   <div className="space-y-1">
                     {labels.map((label) => {
                       const Icon = label.icon;
@@ -486,7 +987,7 @@ const DataLabelingPage = () => {
                           key={label.id}
                           onClick={() => setSelectedLabel(label.id)}
                           className={cn(
-                            "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors",
+                            "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors group",
                             selectedLabel === label.id
                               ? "bg-accent/10 border border-accent/30"
                               : "hover:bg-secondary"
@@ -498,16 +999,36 @@ const DataLabelingPage = () => {
                           >
                             <Icon className="w-4 h-4" style={{ color: label.color }} />
                           </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">{label.name}</p>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <p className="text-sm font-medium truncate">{label.name}</p>
+                              {label.isCustom && (
+                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-emerald-500/30 text-emerald-400">
+                                  Custom
+                                </Badge>
+                              )}
+                            </div>
                             <p className="text-xs text-muted-foreground">
                               {selectedImage?.annotations.filter((a) => a.labelId === label.id)
                                 .length || 0}{" "}
                               annotations
                             </p>
                           </div>
+                          {label.isCustom && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteLabel(label.id);
+                              }}
+                            >
+                              <X className="w-3 h-3 text-destructive" />
+                            </Button>
+                          )}
                           <div
-                            className="w-3 h-3 rounded-full"
+                            className="w-3 h-3 rounded-full flex-shrink-0"
                             style={{ backgroundColor: label.color }}
                           />
                         </div>
@@ -521,9 +1042,15 @@ const DataLabelingPage = () => {
               {selectedImage && selectedImage.annotations.length > 0 && (
                 <Card>
                   <CardHeader className="py-3 px-4 border-b border-border">
-                    <CardTitle className="text-sm flex items-center gap-2">
-                      <Layers className="w-4 h-4" />
-                      Annotations ({selectedImage.annotations.length})
+                    <CardTitle className="text-sm flex items-center justify-between">
+                      <span className="flex items-center gap-2">
+                        <Layers className="w-4 h-4" />
+                        Annotations ({selectedImage.annotations.length})
+                      </span>
+                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                        <Hand className="w-3 h-3" />
+                        {selectedImage.annotations.filter(a => a.isManual).length} manual
+                      </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-2 max-h-48 overflow-y-auto">
@@ -544,12 +1071,32 @@ const DataLabelingPage = () => {
                               <Icon className="w-3 h-3" style={{ color: label.color }} />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs font-medium truncate">{label.name}</p>
-                              {annotation.aiConfidence && (
+                              <div className="flex items-center gap-1.5">
+                                <p className="text-xs font-medium truncate">{label.name}</p>
+                                <Badge 
+                                  variant="outline" 
+                                  className={cn(
+                                    "text-[8px] px-1 py-0 h-3.5",
+                                    annotation.isManual 
+                                      ? "border-emerald-500/30 text-emerald-400" 
+                                      : "border-accent/30 text-accent"
+                                  )}
+                                >
+                                  {annotation.type}
+                                </Badge>
+                              </div>
+                              {annotation.aiConfidence ? (
                                 <div className="flex items-center gap-1">
                                   <Sparkles className="w-2.5 h-2.5 text-accent" />
                                   <span className="text-[10px] text-muted-foreground">
                                     {Math.round(annotation.aiConfidence * 100)}% confidence
+                                  </span>
+                                </div>
+                              ) : annotation.isManual && (
+                                <div className="flex items-center gap-1">
+                                  <Hand className="w-2.5 h-2.5 text-emerald-400" />
+                                  <span className="text-[10px] text-muted-foreground">
+                                    Manual annotation
                                   </span>
                                 </div>
                               )}
@@ -558,6 +1105,7 @@ const DataLabelingPage = () => {
                               variant="ghost"
                               size="icon"
                               className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                              onClick={() => handleDeleteAnnotation(annotation.id)}
                             >
                               <Trash2 className="w-3 h-3 text-destructive" />
                             </Button>
