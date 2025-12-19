@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { NavLink } from "@/components/NavLink";
 import {
   LayoutDashboard,
@@ -148,11 +149,11 @@ const DashboardSidebar = () => {
   return (
     <aside className="flex flex-col items-center h-screen w-32 bg-background border-r border-border sticky top-0 py-8">
       {/* Logo */}
-      <div className="mb-8">
-        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+      <Link to="/" className="mb-8">
+        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity">
           <Building2 className="w-6 h-6 text-primary-foreground" />
         </div>
-      </div>
+      </Link>
 
       {/* Role Switcher */}
       <div className="mb-4 w-full px-2">
