@@ -58,9 +58,13 @@ const App = () => (
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contractor" element={<ContractorDashboard />} />
+          <Route path="/contractor-dashboard" element={<ContractorDashboard />} />
           <Route path="/architect" element={<ArchitectDashboard />} />
+          <Route path="/architect-dashboard" element={<ArchitectDashboard />} />
           <Route path="/designer" element={<InteriorDesignerDashboard />} />
+          <Route path="/interior-designer-dashboard" element={<InteriorDesignerDashboard />} />
           <Route path="/vendor" element={<VendorDashboard />} />
+          <Route path="/vendor-dashboard" element={<VendorDashboard />} />
           <Route path="/finance-dashboard" element={<FinanceDashboard />} />
           <Route path="/projects" element={<PortfolioPage />} />
           <Route path="/tasks" element={<TasksBoardPage />} />
@@ -96,6 +100,7 @@ const App = () => (
           <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="/workflow" element={<WorkflowPage />} />
           <Route path="/labor" element={<LaborDashboard />} />
+          <Route path="/labor-dashboard" element={<LaborDashboard />} />
           <Route path="/labor-marketplace" element={<LaborMarketplacePage />} />
           <Route path="/data-labeling" element={<DataLabelingPage />} />
           <Route path="*" element={<NotFound />} />
