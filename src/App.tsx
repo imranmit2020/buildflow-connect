@@ -43,6 +43,13 @@ import WorkflowPage from "./pages/WorkflowPage";
 import LaborDashboard from "./pages/LaborDashboard";
 import LaborMarketplacePage from "./pages/LaborMarketplacePage";
 import DataLabelingPage from "./pages/DataLabelingPage";
+import DigitalTwinPage from "./pages/DigitalTwinPage";
+import ARVisualizerPage from "./pages/ARVisualizerPage";
+import DroneHubPage from "./pages/DroneHubPage";
+import GenerativeDesignPage from "./pages/GenerativeDesignPage";
+import PredictiveAIPage from "./pages/PredictiveAIPage";
+import VoiceCommandPage from "./pages/VoiceCommandPage";
+import ComputerVisionPage from "./pages/ComputerVisionPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -103,6 +110,14 @@ const App = () => (
           <Route path="/labor-dashboard" element={<LaborDashboard />} />
           <Route path="/labor-marketplace" element={<LaborMarketplacePage />} />
           <Route path="/data-labeling" element={<DataLabelingPage />} />
+          {/* Breakthrough AI Features */}
+          <Route path="/digital-twin" element={<DigitalTwinPage />} />
+          <Route path="/ar-visualizer" element={<ARVisualizerPage />} />
+          <Route path="/drone-hub" element={<DroneHubPage />} />
+          <Route path="/generative-design" element={<GenerativeDesignPage />} />
+          <Route path="/predictive-ai" element={<PredictiveAIPage />} />
+          <Route path="/voice-command" element={<VoiceCommandPage />} />
+          <Route path="/computer-vision" element={<ComputerVisionPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
