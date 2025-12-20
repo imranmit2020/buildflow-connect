@@ -1,58 +1,21 @@
-# Welcome to your Lovable project
+# Construq - AI-First Construction Management Platform
 
-## Project info
+## Overview
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Construq is an innovative, AI-powered construction management platform that orchestrates projects, materials, teams, and finances automatically.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **AI Digital Twin** - Real-time 3D site simulation with IoT sensors
+- **AR Site Visualizer** - Augmented reality overlay on construction sites
+- **Autonomous Drone Hub** - Fleet management with AI patrol missions
+- **Generative Design AI** - Text-to-floor-plan generation
+- **Predictive AI Engine** - Risk prediction and delay forecasting
+- **Voice Command Interface** - Natural language project control
+- **Computer Vision Analytics** - Real-time safety and progress monitoring
+- **Data Labeling Studio** - Build ML datasets for model training
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+## Tech Stack
 
 - Vite
 - TypeScript
@@ -60,14 +23,26 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+# Clone the repository
+git clone <YOUR_GIT_URL>
 
-## Can I connect a custom domain to my Lovable project?
+# Navigate to project directory
+cd <YOUR_PROJECT_NAME>
 
-Yes, you can!
+# Install dependencies
+npm i
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Start development server
+npm run dev
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Development
+
+The project uses a modern React stack with:
+- Component-based architecture
+- Role-based dashboards (Client, Contractor, Architect, etc.)
+- Real-time data visualization
+- Responsive design for all devices
