@@ -1189,7 +1189,7 @@ const DataLabelingPage = () => {
                       ),
                     }))}
                     onExport={(format, options) => {
-                      console.log("Exporting dataset:", format, options);
+                      toast.success(`Dataset exported as ${format}`);
                     }}
                   />
                 </TabsContent>
