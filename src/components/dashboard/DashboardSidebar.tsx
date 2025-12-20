@@ -39,6 +39,13 @@ import {
   HardHat,
   Award,
   ScanSearch,
+  Box,
+  Glasses,
+  Plane,
+  Wand2,
+  BrainCircuit,
+  Mic,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -113,6 +120,15 @@ const allNavItems: NavItem[] = [
   { icon: Bot, label: "AI Copilot", path: "/ai-copilot", roles: ["client", "contractor", "architect", "designer", "vendor", "finance"] },
   { icon: GitBranch, label: "Workflow", path: "/workflow", roles: ["client", "contractor", "architect", "designer", "vendor", "finance"] },
   { icon: ScanSearch, label: "Data Labeling", path: "/data-labeling", roles: ["contractor", "architect"] },
+  
+  // Breakthrough AI Features
+  { icon: Box, label: "Digital Twin", path: "/digital-twin", roles: ["client", "contractor", "architect"] },
+  { icon: Glasses, label: "AR Visualizer", path: "/ar-visualizer", roles: ["client", "architect", "designer"] },
+  { icon: Plane, label: "Drone Hub", path: "/drone-hub", roles: ["contractor"] },
+  { icon: Wand2, label: "Gen Design", path: "/generative-design", roles: ["architect", "designer"] },
+  { icon: BrainCircuit, label: "Predictive AI", path: "/predictive-ai", roles: ["client", "contractor", "finance"] },
+  { icon: Mic, label: "Voice AI", path: "/voice-command", roles: ["client", "contractor", "architect", "designer", "vendor", "finance"] },
+  { icon: Eye, label: "Vision AI", path: "/computer-vision", roles: ["contractor"] },
 ];
 
 const roles = [
