@@ -194,14 +194,95 @@ const Navbar = () => {
                   </NavigationMenuItem>
                 ))}
                 
-                {/* Data Labeling Link */}
+                {/* AI Features Dropdown */}
                 <NavigationMenuItem>
-                  <Link
-                    to="/data-labeling"
-                    className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground inline-flex items-center"
-                  >
-                    Data Labeling
-                  </Link>
+                  <NavigationMenuTrigger className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground bg-transparent hover:bg-accent data-[state=open]:bg-accent">
+                    AI Features
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[320px] gap-1 p-3 md:grid-cols-2">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/digital-twin"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            AI Digital Twin
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/ar-visualizer"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            AR Visualizer
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/drone-hub"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Drone Hub
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/generative-design"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Generative Design
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/predictive-ai"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Predictive AI
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/voice-command"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Voice Command
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/computer-vision"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Computer Vision
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/data-labeling"
+                            className="block select-none rounded-md p-2.5 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground text-muted-foreground hover:text-foreground"
+                          >
+                            Data Labeling
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -267,14 +348,33 @@ const Navbar = () => {
                 </div>
               ))}
               
-              {/* Data Labeling Mobile */}
-              <Link
-                to="/data-labeling"
-                className="py-3 px-2 text-foreground font-medium hover:bg-accent/50 rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                Data Labeling
-              </Link>
+              {/* AI Features Mobile */}
+              <div className="border-b border-border/50">
+                <button
+                  onClick={() => setExpandedRole(expandedRole === "AI Features" ? null : "AI Features")}
+                  className="flex items-center justify-between w-full py-3 px-2 text-foreground font-medium hover:bg-accent/50 rounded-md"
+                >
+                  AI Features
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 transition-transform duration-200",
+                      expandedRole === "AI Features" && "rotate-180"
+                    )}
+                  />
+                </button>
+                {expandedRole === "AI Features" && (
+                  <div className="pl-4 pb-2 flex flex-col gap-1">
+                    <Link to="/digital-twin" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>AI Digital Twin</Link>
+                    <Link to="/ar-visualizer" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>AR Visualizer</Link>
+                    <Link to="/drone-hub" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Drone Hub</Link>
+                    <Link to="/generative-design" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Generative Design</Link>
+                    <Link to="/predictive-ai" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Predictive AI</Link>
+                    <Link to="/voice-command" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Voice Command</Link>
+                    <Link to="/computer-vision" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Computer Vision</Link>
+                    <Link to="/data-labeling" className="py-2 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md" onClick={() => setIsOpen(false)}>Data Labeling</Link>
+                  </div>
+                )}
+              </div>
               
               <div className="flex flex-col gap-2 pt-4 border-t border-border mt-2">
                 <Link to="/login" onClick={() => setIsOpen(false)}>
